@@ -7,20 +7,25 @@
 </head>
 
 <body>
+<h1>World of Darkness Dice Roller</h1>
+
     <form>
-        <h1>Dice Roller</h1>
-        <h3>Basic</h3>
+        <h3>Details</h3>
+        <p>        
+            <label for="player_name">Player Name:</label>
+            <input id="player_name" type="text" placeholder="John Doe">
+        </p>
         <p>        
             <label for="roll_name">Roll Name:</label>
-            <input id="roll_name" type="text" placeholder="Blank Roll">
+            <input id="roll_name" type="text" placeholder="Description">
         </p>
         <p>
-            <label for="dice">Number of Dice:</label>
+            <label for="dice">Dice Pool:</label>
             <input id="dice" type="number" placeholder="0">
         </p>
         <h3>Agains</h3>
         <p>
-            <input id="10again" type="radio" name="agains">
+            <input id="10again" type="radio" name="agains" checked>
             <label for="10again">10-Again</label>
         </p>
         <p>
@@ -33,20 +38,43 @@
         </p>
         <p>
             <input id="a-none" type="radio" name="agains">
-            <label for="a-none">None</label>
+            <label for="a-none">No Re-rolls</label>
         </p>
 
-        <h3>Rote</h3>
+        <h3>Modifiers</h3>
         <p>
-            <input id="rote" type="radio" name="rote">
-            <label for="rote">Rote</label>
+            <input id="rote" type="checkbox">
+            <label for="modifiers">Rote</label>
         </p>
         <p>
-            <input id="r-none" type="radio" name="rote">
-            <label for="r-none">None</label>
+            <input id="willpower" type="checkbox">
+            <label for="willpower">Use Willpower</label>
         </p>
         <p>
-            <button>Submit</button>
+            <input id="advanced" type="checkbox">
+            <label for="advanced">Advanced Action</label>
+        </p>
+        <p>
+            <input id="1s" type="checkbox">
+            <label for="1s">1s Subtract</label>
+        </p>
+
+        <h3>Roll Type</h3>
+        <p>
+            <input id="rRoll" type="radio" name="rolls" checked>
+            <label for="rRoll">Regular Roll</label>
+        </p>
+        <p>
+            <input id="chance" type="radio" name="rolls">
+            <label for="chance">Chance Roll</label>
+        </p>
+        <p>
+            <input id="initiative" type="radio" name="rolls">
+            <label for="initiative">Initiative</label>
+        </p>
+
+        <p>
+            <button>Roll</button>
         </p>
     </form>
 </body>
