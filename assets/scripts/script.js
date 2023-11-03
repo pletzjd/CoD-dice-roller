@@ -1,4 +1,4 @@
-function Roll(dice, rote, again, wp){
+function roll(dice, rote, again, wp){
     let roll = [];
 
     let successes = 0;
@@ -28,5 +28,8 @@ function Roll(dice, rote, again, wp){
         }
       }
       
+      console.log('roll: '+ roll +' successes: '+ successes +' fails: '+ fails +' tens: '+ ten +' nines: '+ nine +' eights: '+ eight)
       
   }
+
+roll(10, false, false, true)
