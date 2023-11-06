@@ -17,26 +17,24 @@ function roll(dice, wp, rote, again){
     
     console.log('roll: '+roll)
   
-    if (roll[roll.length-1] <= 7) {
-      if(rote){
-        console.log('rote')
-        roll = roll.concat(reroller(again));
-        console.log('roll: '+roll)
-      }
-    } else if (roll[roll.length-1] === 8) {
-      if(again === 8){
-        roll = roll.concat(reroller(again));
-      }
-      
-    } else if (roll[roll.length-1] === 9) {
-      if(8 <= again && again <= 9){
-        roll = roll.concat(reroller(again))
-      }
-    } else {
-      if(8 <= again){
-        roll = roll.concat(reroller(again))
-      }
+
+    if (roll[roll.length-1] === 8 && again === 8) {
+      roll = roll.concat(reroller(again));
+      console.log('8-again reroll: '+roll)
+    } else if (roll[roll.length-1] === 9 && 8 <= again && again <= 9) {
+      roll = roll.concat(reroller(again))
+      console.log('9-again reroll: '+roll)
+    } else if(roll[roll.length-1] === 10 && 8 <= again) {
+      roll = roll.concat(reroller(again))
+      console.log('10-again reroll: '+roll)
     }
+
+    if (roll[roll.length-1] <= 7 && rote) {
+      console.log('rote')
+      roll = roll.concat(reroller(again));
+      console.log('rote roll: '+roll)
+    } 
+
   }
 console.log('result: '+ roll)
 roll.forEach(x => { if( x >=8 ){ successes++ } })
@@ -64,7 +62,7 @@ let rollForm = document.getElementById('rollForm')
 
 rollForm.addEventListener('submit', (e) => {
   e.preventDefault()
-
+  console.log('------------------New Roll------------------')
   let playerName = document.getElementById('playerName')
   console.log('Player Name: '+ playerName.value)
   let description = document.getElementById('rollDescription')
@@ -79,13 +77,13 @@ rollForm.addEventListener('submit', (e) => {
     }else{
       let again
       let agains = document.querySelectorAll('input[name="agains"]')
-      agains.forEach(x =>{ if(x.checked){ again = Number(x.value)}})
+      agains.forEach(x =>{ if(x.checked){ again = parseInt(x.value)}})
       console.log('Again: '+again)
       let rote = document.getElementById('rote')
       console.log('Rote: '+rote.checked)
       let wp = document.getElementById('willpower')
       console.log('Willpower: '+wp.checked)
-      roll(dice.value, wp.checked, rote.checked, again)
+      roll(parseInt(dice.value), wp.checked, rote.checked, again)
 
     }
   }
