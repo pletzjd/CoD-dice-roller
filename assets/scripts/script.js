@@ -67,12 +67,13 @@ rollForm.addEventListener('submit', (e) => {
   console.log('Player Name: '+ playerName.value)
   let description = document.getElementById('rollDescription')
   console.log('Description: '+ description.value)
-  let dice = document.getElementById('dice')
-  console.log('Dice pool: '+ dice.value)
+
 
   if(e.submitter.id === 'regRoll'){
+    let dice = document.getElementById('dice')
+    console.log('Dice pool: '+ dice.value)
     if(playerName.value == '' || description.value == '' || dice.value <= 0){
-      alert('Be sure to fill in Player Name, Desctiption and Dice Pool')
+      alert('Be sure to fill in Player Name, Desctiption and Dice Pool for normal rolls')
       return
     }else{
       let again
@@ -85,6 +86,14 @@ rollForm.addEventListener('submit', (e) => {
       console.log('Willpower: '+wp.checked)
       roll(parseInt(dice.value), wp.checked, rote.checked, again)
 
+    }
+  }else if(e.submitter.id === 'chanceRoll'){
+    if(playerName.value == '' || description.value == ''){
+      alert('Be sure to fill in Player Name and Desctiption for chance rolls')
+    }
+  }else if(e.submitter.id === 'initiativeRoll'){
+    if(playerName.value == ''){
+      alert('Be sure to fill in Player Name for initiative rolls')
     }
   }
 })
