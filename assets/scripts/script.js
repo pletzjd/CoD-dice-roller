@@ -60,4 +60,33 @@ function reroller(again){
   return reRoll
 }
 
-roll(5,false,true,10)
+let rollForm = document.getElementById('rollForm')
+
+rollForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  let playerName = document.getElementById('playerName')
+  console.log('Player Name: '+ playerName.value)
+  let description = document.getElementById('rollDescription')
+  console.log('Description: '+ description.value)
+  let dice = document.getElementById('dice')
+  console.log('Dice pool: '+ dice.value)
+
+  if(e.submitter.id === 'regRoll'){
+    if(playerName.value == '' || description.value == '' || dice.value <= 0){
+      alert('Be sure to fill in Player Name, Desctiption and Dice Pool')
+      return
+    }else{
+      let again
+      let agains = document.querySelectorAll('input[name="agains"]')
+      agains.forEach(x =>{ if(x.checked){ again = Number(x.value)}})
+      console.log('Again: '+again)
+      let rote = document.getElementById('rote')
+      console.log('Rote: '+rote.checked)
+      let wp = document.getElementById('willpower')
+      console.log('Willpower: '+wp.checked)
+      roll(dice.value, wp.checked, rote.checked, again)
+
+    }
+  }
+})
