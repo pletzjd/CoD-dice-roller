@@ -8,11 +8,7 @@ function roll(dice, wp, rote, again){
 
   for (let i = 0; i < dice; i++) {
     
-    roll.push(Math.ceil(Math.random() * 10));
-
-    if(roll[roll.length-1] === 0){
-      roll[roll.lenght-1] = 10;
-    }
+    roll.push(singleRoll());
     
     console.log('roll: '+roll)
   
@@ -36,6 +32,7 @@ function roll(dice, wp, rote, again){
 
   }
 console.log('result: '+ roll)
+
 roll.forEach(x => { if( x >=8 ){ successes++ } })
 console.log('successes: '+ successes)
 
@@ -45,11 +42,7 @@ return [roll, successes];
 function reroller(again){
   let reRoll = []
   
-  reRoll[0] = Math.ceil(Math.random() * 10);
-
-  if(reRoll[reRoll.length-1] === 0){
-    reRoll[reRoll.lenght-1] = 10;
-  }
+  reRoll[0] = singleRoll();
 
   if(reRoll[0] >= again && again){
     let recall = reroller(again);
@@ -60,12 +53,8 @@ function reroller(again){
 }
 
 function chanceRoll(){
-  let roll = Math.ceil(Math.random() * 10);
+  let roll = singleRoll();
   let result;
-
-  if(roll === 0){
-    roll = 10;
-  }
 
   console.log('roll: '+roll);
 
@@ -83,36 +72,48 @@ function chanceRoll(){
 
 }
 
+function singleRoll(){
+  let roll = Math.ceil(Math.random() * 10);
+
+  if(roll === 0){
+    roll = 10;
+  }
+
+  return roll
+}
+
 let rollForm = document.getElementById('rollForm')
 
 rollForm.addEventListener('submit', (e) => {
   e.preventDefault()
   console.log('%c------------------New Roll------------------', 'background: #89CFF0;')
-  let playerName = document.getElementById('playerName')
-  console.log('Player Name: '+ playerName.value)
-  let description = document.getElementById('rollDescription')
-  console.log('Description: '+ description.value)
+  let playerName = document.getElementById('playerName').value
+  console.log('Player Name: '+ playerName)
+  let description = document.getElementById('rollDescription').value
 
   if(e.submitter.id === 'regRoll'){
-    let dice = document.getElementById('dice')
-    console.log('Dice pool: '+ dice.value)
+    console.log('Description: '+description)
+    let dice = parseInt(document.getElementById('dice').value)
+    console.log('Dice pool: '+ dice)
 
     if(playerName.value == '' || description.value == '' || dice.value <= 0){
       alert('Be sure to fill in Player Name, Desctiption and Dice Pool for normal rolls');
     }else{
+      console.log('Description: '+description)
       let again;
       let agains = document.querySelectorAll('input[name="agains"]');
       agains.forEach(x =>{ if(x.checked){ again = parseInt(x.value)}});
       console.log('Again: '+again);
-      let rote = document.getElementById('rote');
-      console.log('Rote: '+rote.checked);
-      let wp = document.getElementById('willpower');
-      console.log('Willpower: '+wp.checked);
-      roll(parseInt(dice.value), wp.checked, rote.checked, again);
+      let rote = document.getElementById('rote').checked;
+      console.log('Rote: '+rote);
+      let wp = document.getElementById('willpower').checked;
+      console.log('Willpower: '+wp);
+      roll(dice, wp, rote, again);
 
     }
 
   }else if(e.submitter.id === 'chanceRoll'){
+    console.log('Description: '+description)
 
     if(playerName.value == '' || description.value == ''){
       alert('Be sure to fill in Player Name and Desctiption for chance rolls');
@@ -124,6 +125,11 @@ rollForm.addEventListener('submit', (e) => {
 
     if(playerName.value == ''){
       alert('Be sure to fill in Player Name for initiative rolls');
+    }else{
+      description = 'Initiative';
+      console.log('Description: '+description);
+      let initiative = singleRoll();
+      console.log('roll: '+initiative);
     }
 
   }
