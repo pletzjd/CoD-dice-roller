@@ -92,11 +92,12 @@ rollForm.addEventListener('submit', (e) => {
   let description = document.getElementById('rollDescription').value
 
   if(e.submitter.id === 'regRoll'){
+    let rollResult;
     console.log('Description: '+description)
     let dice = parseInt(document.getElementById('dice').value)
     console.log('Dice pool: '+ dice)
 
-    if(playerName.value == '' || description.value == '' || dice.value <= 0){
+    if(!playerName || !description || !dice || dice <= 0){
       alert('Be sure to fill in Player Name, Desctiption and Dice Pool for normal rolls');
     }else{
       console.log('Description: '+description)
@@ -108,28 +109,51 @@ rollForm.addEventListener('submit', (e) => {
       console.log('Rote: '+rote);
       let wp = document.getElementById('willpower').checked;
       console.log('Willpower: '+wp);
-      roll(dice, wp, rote, again);
+      let advanced = document.getElementById('advanced').checked;
+
+      if(advanced){
+        let rollOne = roll(dice, wp, rote, again);
+        let rollTwo = roll(dice, wp, rote, again);
+
+        rollResult = [rollOne[0], rollTwo[0]]
+
+        if(rollOne[1] > rollTwo[1]){
+          rollResult.push(rollOne[1]);
+          rollResult.push(rollOne[1]);
+        }else{
+          rollResult.push(rollTwo[1]);
+          rollResult.push(rollOne[1]);
+        }
+
+        console.log('Roll 1: '+rollResult[0]);
+        console.log('Roll 2: '+rollResult[1]);
+        console.log('Advanced successes: '+rollResult[2]);
+        console.log('Regular successes: '+rollResult[3]);
+
+      }else{
+        rollResult = roll(dice, wp, rote, again);
+      }
 
     }
 
   }else if(e.submitter.id === 'chanceRoll'){
     console.log('Description: '+description)
 
-    if(playerName.value == '' || description.value == ''){
+    if(!playerName || !description){
       alert('Be sure to fill in Player Name and Desctiption for chance rolls');
     }else{
-      chanceRoll();
+      rollResult = chanceRoll();
     }
 
   }else if(e.submitter.id === 'initiativeRoll'){
 
-    if(playerName.value == ''){
+    if(!playerName){
       alert('Be sure to fill in Player Name for initiative rolls');
     }else{
       description = 'Initiative';
       console.log('Description: '+description);
-      let initiative = singleRoll();
-      console.log('roll: '+initiative);
+      rollResult = singleRoll();
+      console.log('roll: '+rollResult);
     }
 
   }
