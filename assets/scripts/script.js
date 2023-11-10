@@ -87,9 +87,12 @@ let rollForm = document.getElementById('rollForm')
 rollForm.addEventListener('submit', (e) => {
   e.preventDefault()
   console.log('%c------------------New Roll------------------', 'background: #89CFF0;')
+  let timeStamp = moment().format('YYYY-MM-DD, HH:mm:ss')
+  console.log('rolled at: '+timeStamp)
   let playerName = document.getElementById('playerName').value
   console.log('Player Name: '+ playerName)
   let description = document.getElementById('rollDescription').value
+
 
   if(e.submitter.id === 'regRoll'){
     let rollResult;
@@ -100,7 +103,6 @@ rollForm.addEventListener('submit', (e) => {
     if(!playerName || !description || !dice || dice <= 0){
       alert('Be sure to fill in Player Name, Desctiption and Dice Pool for normal rolls');
     }else{
-      console.log('Description: '+description)
       let again;
       let agains = document.querySelectorAll('input[name="agains"]');
       agains.forEach(x =>{ if(x.checked){ again = parseInt(x.value)}});
@@ -130,19 +132,59 @@ rollForm.addEventListener('submit', (e) => {
         console.log('Advanced successes: '+rollResult[2]);
         console.log('Regular successes: '+rollResult[3]);
 
+        let rollObj = {
+          rollType: 'reg',
+          timeStamp: timeStamp,
+          playerName: playerName,
+          description: description,
+          dice: dice,
+          wp: wp,
+          again: again,
+          rote: rote,
+          advanced: advanced,
+          rollResult: [rollResult[0], rollResult[1]], //[firstRoll, secondRoll]
+          successes: [rollResult[2], rollResult[3]] //[advancedActionSuccesses, nonAdvancedActionSuccesses]
+        }
+
+        console.log(rollObj)
+
       }else{
         rollResult = roll(dice, wp, rote, again);
+
+        let rollObj = {
+          rollType: 'reg',
+          timeStamp: timeStamp,
+          playerName: playerName,
+          description: description,
+          dice: dice,
+          wp: wp,
+          again: again,
+          rote: rote,
+          advanced: advanced,
+          rollResult: [rollResult[0]],
+          successes: [rollResult[1]]
+        }
+        console.log(rollObj)
+      }
       }
 
-    }
-
-  }else if(e.submitter.id === 'chanceRoll'){
+    }else if(e.submitter.id === 'chanceRoll'){
     console.log('Description: '+description)
 
     if(!playerName || !description){
       alert('Be sure to fill in Player Name and Desctiption for chance rolls');
     }else{
       rollResult = chanceRoll();
+
+      let rollObj = {
+        rollType: 'chance',
+        timeStamp: timeStamp,
+        playerName: playerName,
+        description: description,
+        rollResult: rollResult[0],
+        successes: rollResult[1]
+      }
+      console.log(rollObj);
     }
 
   }else if(e.submitter.id === 'initiativeRoll'){
@@ -154,6 +196,15 @@ rollForm.addEventListener('submit', (e) => {
       console.log('Description: '+description);
       rollResult = singleRoll();
       console.log('roll: '+rollResult);
+
+      let rollObj = {
+        rollType: 'initiative',
+        timeStamp: timeStamp,
+        playerName: playerName,
+        description: description,
+        rollResult: rollResult
+      }
+      console.log(rollObj);
     }
 
   }
