@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS roll_db;
+CREATE DATABASE roll_db;

@@ -1,4 +1,5 @@
 const express = require('express')
+const sequelize = require('./config/connection');
 const app = express()
 const Port = process.env.PORT || 3001
 
@@ -6,4 +7,6 @@ app.use(express.static('public'))
 
 app.get('/', (req,res) => res.send('Homepage'))
 
-app.listen(Port, () => console.info(`Listening on https://localhost:${Port}`))
+sequelize.sync({ force: true }).then(() => {
+    app.listen(Port, () => console.log(`Listening on http://localhost:${Port}`));
+  });
