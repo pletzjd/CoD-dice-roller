@@ -87,7 +87,7 @@ let rollForm = document.getElementById('rollForm')
 rollForm.addEventListener('submit', (e) => {
   e.preventDefault()
   console.log('%c------------------New Roll------------------', 'background: #89CFF0;')
-  let timeStamp = moment().format('YYYY-MM-DD, HH:mm:ss')
+  let timeStamp = moment().format('YYYY-MM-DD HH:mm:ss')
   console.log('rolled at: '+timeStamp)
   let playerName = document.getElementById('playerName').value
   console.log('Player Name: '+ playerName)
@@ -134,7 +134,6 @@ rollForm.addEventListener('submit', (e) => {
 
         let rollObj = {
           rollType: 'reg',
-          timeStamp: timeStamp,
           playerName: playerName,
           description: description,
           dice: dice,
@@ -142,8 +141,10 @@ rollForm.addEventListener('submit', (e) => {
           again: again,
           rote: rote,
           advanced: advanced,
-          rollResult: [rollResult[0], rollResult[1]], //[firstRoll, secondRoll]
-          successes: [rollResult[2], rollResult[3]] //[advancedActionSuccesses, nonAdvancedActionSuccesses]
+          rollResult: rollResult[0].toString(),
+          advancedRoll: rollResult[1].toString(),
+          successes: rollResult[3].toString(),
+          advancedSuccesses: rollResult[2]
         }
 
         console.log(rollObj)
@@ -153,7 +154,6 @@ rollForm.addEventListener('submit', (e) => {
 
         let rollObj = {
           rollType: 'reg',
-          timeStamp: timeStamp,
           playerName: playerName,
           description: description,
           dice: dice,
@@ -161,8 +161,10 @@ rollForm.addEventListener('submit', (e) => {
           again: again,
           rote: rote,
           advanced: advanced,
-          rollResult: [rollResult[0]],
-          successes: [rollResult[1]]
+          rollResult: rollResult[0].toString(),
+          advancedRoll: null,
+          successes: rollResult[1].toString(),
+          advancedSuccesses: null
         }
         console.log(rollObj)
       }
@@ -178,11 +180,17 @@ rollForm.addEventListener('submit', (e) => {
 
       let rollObj = {
         rollType: 'chance',
-        timeStamp: timeStamp,
         playerName: playerName,
         description: description,
-        rollResult: rollResult[0],
-        successes: rollResult[1]
+        dice: 1,
+        wp: false,
+        again: 0,
+        rote: false,
+        advanced: false,
+        rollResult: rollResult[0].toString(),
+        advancedRoll: null,
+        successes: rollResult[1],
+        advancedSuccesses: null
       }
       console.log(rollObj);
     }
@@ -199,10 +207,17 @@ rollForm.addEventListener('submit', (e) => {
 
       let rollObj = {
         rollType: 'initiative',
-        timeStamp: timeStamp,
         playerName: playerName,
         description: description,
-        rollResult: rollResult
+        dice: 1,
+        wp: false,
+        again: 0,
+        rote: false,
+        advanced: false,
+        rollResult: rollResult.toString(),
+        advancdedRoll: null,
+        successes: null,
+        advancedSuccesses: null
       }
       console.log(rollObj);
     }
