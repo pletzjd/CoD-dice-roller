@@ -5,15 +5,15 @@ class Roll extends Model {}
 
 Roll.init(
   {
-    roll_id: {
+    rollID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    roll_Type: {
+    rollType: {
       type: DataTypes.STRING
     },
-    player_Name: {
+    playerName: {
         type: DataTypes.STRING
     },
     description: {
@@ -34,16 +34,16 @@ Roll.init(
     advanced: {
         type: DataTypes.BOOLEAN
     },
-    roll_Results: {
+    rollResult: {
         type: DataTypes.STRING
     },
-    advanced_Reroll: {
+    advancedRoll: {
         type: DataTypes.STRING
     },
     successes: {
         type: DataTypes.STRING
     },
-    advanced_Successes:{
+    advancedSuccesses:{
         type: DataTypes.INTEGER
     }
   },
@@ -51,7 +51,7 @@ Roll.init(
     sequelize,
     updatedAt: false,
     freezeTableName: true,
-    underscored: true,
+    underscored: false,
     modelName: 'roll'
   }
 );

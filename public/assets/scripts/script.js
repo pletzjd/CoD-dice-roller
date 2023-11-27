@@ -92,6 +92,7 @@ rollForm.addEventListener('submit', (e) => {
   let playerName = document.getElementById('playerName').value
   console.log('Player Name: '+ playerName)
   let description = document.getElementById('rollDescription').value
+  let rollObj;
 
 
   if(e.submitter.id === 'regRoll'){
@@ -132,12 +133,12 @@ rollForm.addEventListener('submit', (e) => {
         console.log('Advanced successes: '+rollResult[2]);
         console.log('Regular successes: '+rollResult[3]);
 
-        let rollObj = {
+        rollObj = {
           rollType: 'reg',
           playerName: playerName,
           description: description,
           dice: dice,
-          wp: wp,
+          willpower: wp,
           again: again,
           rote: rote,
           advanced: advanced,
@@ -152,12 +153,12 @@ rollForm.addEventListener('submit', (e) => {
       }else{
         rollResult = roll(dice, wp, rote, again);
 
-        let rollObj = {
+        rollObj = {
           rollType: 'reg',
           playerName: playerName,
           description: description,
           dice: dice,
-          wp: wp,
+          willpower: wp,
           again: again,
           rote: rote,
           advanced: advanced,
@@ -178,12 +179,12 @@ rollForm.addEventListener('submit', (e) => {
     }else{
       rollResult = chanceRoll();
 
-      let rollObj = {
+      rollObj = {
         rollType: 'chance',
         playerName: playerName,
         description: description,
         dice: 1,
-        wp: false,
+        willpower: false,
         again: 0,
         rote: false,
         advanced: false,
@@ -205,12 +206,12 @@ rollForm.addEventListener('submit', (e) => {
       rollResult = singleRoll();
       console.log('roll: '+rollResult);
 
-      let rollObj = {
+      rollObj = {
         rollType: 'initiative',
         playerName: playerName,
         description: description,
         dice: 1,
-        wp: false,
+        willpower: false,
         again: 0,
         rote: false,
         advanced: false,
@@ -223,4 +224,36 @@ rollForm.addEventListener('submit', (e) => {
     }
 
   }
+
+  fetch('http://localhost:3001/api/roll',{
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer", 
+    body: JSON.stringify(rollObj),
+  }).then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+  });
+
+  location.reload()
 })
+
+function init(){
+  fetch('http://localhost:3001/api/roll')
+  .then(function(response){
+    return response.json()
+  })
+  .then(function(data){
+    console.log(data)
+  })
+}
+
+init()

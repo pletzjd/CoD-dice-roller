@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const rollRoutes = require('./rollRoutes.js');
+const rollRoutes = require('./rollRoutes');
 
 router.use('/roll', rollRoutes);
 
