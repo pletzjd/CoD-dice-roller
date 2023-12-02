@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WoD Dice Roller</title>
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" >
     <script
     type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
@@ -71,6 +72,22 @@
             <button type="submit" id="initiativeRoll">Initiative</button>
         </p>
     </form>
+
+    <hr>
+
+    <table>
+        <tbody id="rollTable">
+            <tr>
+                <td>Timestamp</td>
+                <td>Player</td>
+                <td>Description</td>
+                <td>Dice</td>
+                <td>Modifiers</td>
+                <td>Roll</td>
+                <td>Successes</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script src="./assets/scripts/script.js"></script>
 </body>

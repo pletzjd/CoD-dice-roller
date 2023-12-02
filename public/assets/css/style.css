@@ -1,0 +1,11 @@
+.success{
+    color: lightgreen
+}
+
+.againReroll{
+    font-weight: bolder;
+}
+
+.roteReroll{
+    text-decoration: underline;
+}

@@ -34,16 +34,16 @@ Roll.init(
     advanced: {
         type: DataTypes.BOOLEAN
     },
-    rollResult: {
+    rollOne: {
         type: DataTypes.STRING
     },
-    advancedRoll: {
+    rollTwo: {
         type: DataTypes.STRING
     },
-    successes: {
+    rollOneSuccesses: {
         type: DataTypes.STRING
     },
-    advancedSuccesses:{
+    rollTwoSuccesses:{
         type: DataTypes.INTEGER
     }
   },
