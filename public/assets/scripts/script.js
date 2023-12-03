@@ -181,7 +181,7 @@ rollForm.addEventListener('submit', (e) => {
         again: 0,
         rote: false,
         advanced: false,
-        rollOne: rollResult.toString(),
+        rollOne: rollResult[0].toString(),
         rollTwo: null,
         rollOneSuccesses: rollResult[1],
         rollTwoSuccesses: null
@@ -240,6 +240,66 @@ rollForm.addEventListener('submit', (e) => {
   location.reload()
 })
 
+function rollParser(roll, type, again, rote){
+  if(!again){
+    again = 11;
+  }
+  let rollElement = document.createElement('p');
+
+  roll = roll.split(',');
+  let wasRoteReRoll = false;
+  let wasAgainReRoll = false;
+
+  roll.forEach((elem, index, arr) => {
+    let spanElement = document.createElement('span');
+    spanElement.textContent = elem;
+
+    //Checks if this roll is due to a reroll
+    //spanElement.setAttribute('class', 'roteReroll');
+    if(index-1 >= 0){
+      if (arr[index-1] >= again) {
+        spanElement.setAttribute('class', 'againReroll');
+        wasRoteReRoll = false;
+        wasAgainReRoll = true;
+      } else if (rote && arr[index-1] <= 7) {
+        // console.log(arr)
+        if(index-2 >= 0 && arr[index-2] <= again && !wasRoteReRoll && !wasAgainReRoll){
+          spanElement.setAttribute('class', 'roteReroll');
+          wasRoteReRoll = true;
+          wasAgainReRoll = false;
+        }else if(index-2 < 0 && !wasRoteReRoll && !wasAgainReRoll){
+          spanElement.setAttribute('class', 'roteReroll');
+          wasRoteReRoll = true;
+          wasAgainReRoll = false
+        }else if(wasRoteReRoll || wasAgainReRoll){
+          wasRoteReRoll = false;
+          wasAgainReRoll = false;
+        }
+      } else {
+        wasRoteReRoll = false;
+        wasAgainReRoll = false;
+      }
+    }
+
+    //Check if this roll cause a success
+    if ((parseInt(elem) === 10 && (type === 'reg' || type === 'chance') ) || (parseInt(elem) === 9 && type === 'reg') || (parseInt(elem) === 8 && type === 'reg')) {
+      let spanAttribute = spanElement.getAttribute('class')
+      if(!spanAttribute){
+        spanAttribute = ''
+      }
+      spanElement.setAttribute('class', spanAttribute.concat(' success').trim());
+    }
+
+    rollElement.appendChild(spanElement)
+    //Adds a , after each number if its not the last iteration
+    if (index != arr.length - 1) {
+      rollElement.innerHTML += ', '
+    }
+  })
+
+  return rollElement
+}
+
 function tableRowMaker(rollObj) {
   //Creating all the elements to be added to the table
   let rollTable = document.getElementById('rollTable')
@@ -290,127 +350,27 @@ function tableRowMaker(rollObj) {
   rollDescriptionColumn.textContent = rollObj.description;
   diceColumn.textContent = rollObj.dice;
   modifiersColumn.textContent = modifiersContent;
+
+  let rollOneRollElement = rollParser(rollObj.rollOne, rollObj.rollType, rollObj.again, rollObj.rote)
+  let rollOneSuccessesElement = document.createElement('p');
+
+  rollColumn.appendChild(rollOneRollElement)
+  rollOneSuccessesElement.textContent = rollObj.rollOneSuccesses
+  successesColumn.appendChild(rollOneSuccessesElement)
+
   if (rollObj.advanced) {
     //Additonal elements for advanced action
-    let rollOneRollElement = document.createElement('p');
-    let rollOneSuccessesElement = document.createElement('p');
-    let rollTwoRollElement = document.createElement('p');
+    let rollTwoRollElement = rollParser(rollObj.rollTwo, rollObj.rollType, rollObj.again, rollObj.rote)
     let rollTwoSuccessesElement = document.createElement('p');
-
-    //Roll 1
-    //Modifies rollObj
-    let rollOne = rollObj.rollOne.split(',');
-    let wasRoteReRoll = false;
-    let wasAgainReRoll = false;
-
-    //Creates and appends a span element for each number rolled
-    rollOne.forEach((roll, index, arr) => {
-      let spanElement = document.createElement('span');
-      spanElement.textContent = roll;
-
-      //Checks if this roll is due to a reroll
-      //spanElement.setAttribute('class', 'roteReroll');
-      if (arr[index-1] >= rollObj.again && index-1 >=0) {
-        spanElement.setAttribute('class', 'againReroll');
-        wasRoteReRoll = false;
-        wasAgainReRoll = true;
-      } else if (rollObj.rote && arr[index-1] <= 7 && index-1 >= 0) {
-        // console.log(arr)
-        if(index-2 >= 0 && arr[index-2] <= rollObj.again && !wasRoteReRoll && !wasAgainReRoll){
-          spanElement.setAttribute('class', 'roteReroll');
-          wasRoteReRoll = true;
-          wasAgainReRoll = false;
-        }else if(index-2 < 0 && !wasRoteReRoll && !wasAgainReRoll){
-          spanElement.setAttribute('class', 'roteReroll');
-          wasRoteReRoll = true;
-          wasAgainReRoll = false
-        }else if(wasRoteReRoll || wasAgainReRoll){
-          wasRoteReRoll = false;
-          wasAgainReRoll = false;
-        }
-      } else {
-        wasRoteReRoll = false;
-        wasAgainReRoll = false;
-      }
-
-      //Check if this roll cause a success
-      if (parseInt(roll) === 10 || parseInt(roll) === 9 || parseInt(roll) === 8) {
-        let spanAttribute = spanElement.getAttribute('class')
-        if(!spanAttribute){
-          spanAttribute = ''
-        }
-        spanElement.setAttribute('class', spanAttribute.concat(' success').trim());
-      }
-
-      rollOneRollElement.appendChild(spanElement)
-      //Adds a , after each number if its not the last iteration
-      if (index != arr.length - 1) {
-        rollOneRollElement.innerHTML += ', '
-      }
-    });
-
-    rollOneSuccessesElement.textContent = rollObj.rollOneSuccesses
-
-    //Roll 2
-    //Modifies rollObj
-    let rollTwo = rollObj.rollTwo.split(',');
-
-    //initializes variables for following foreach call
-    wasRoteReRoll = false;
-    wasAgainReRoll = false;
-
-    //Creates and appends a span element for each number rolled
-    rollTwo.forEach((roll, index, arr) => {
-      let spanElement = document.createElement('span');
-      spanElement.textContent = roll;
-
-      //Checks if this roll is due to a reroll
-      if (arr[index-1] >= rollObj.again && index-1 >=0) {
-        spanElement.setAttribute('class', 'againReroll');
-        wasRoteReRoll = false;
-        wasAgainReRoll = true;
-      } else if (rollObj.rote && arr[index-1] <= 7 && index-1 >= 0) {
-        // console.log(arr)
-        if(index-2 >= 0 && arr[index-2] <= rollObj.again && !wasRoteReRoll && !wasAgainReRoll){
-          spanElement.setAttribute('class', 'roteReroll');
-          wasRoteReRoll = true;
-          wasAgainReRoll = false;
-        }else if(index-2 < 0 && !wasRoteReRoll && !wasAgainReRoll){
-          spanElement.setAttribute('class', 'roteReroll');
-          wasRoteReRoll = true;
-          wasAgainReRoll = false
-        }else if(wasRoteReRoll || wasAgainReRoll){
-          wasRoteReRoll = false;
-          wasAgainReRoll = false;
-        }
-      } else {
-        wasRoteReRoll = false;
-        wasAgainReRoll = false;
-      }
-
-      //Check if this roll cause a success
-      if (parseInt(roll) === 10 || parseInt(roll) === 9 || parseInt(roll) === 8) {
-        let spanAttribute = spanElement.getAttribute('class')
-        if(!spanAttribute){
-          spanAttribute = ''
-        }
-        spanElement.setAttribute('class', spanAttribute.concat(' success').trim());
-      }
-
-      rollTwoRollElement.appendChild(spanElement)
-      //Adds a , after each number if its not the last iteration
-      if (index != arr.length - 1) {
-        rollTwoRollElement.innerHTML += ', '
-      }
-    });
 
     rollTwoSuccessesElement.textContent = rollObj.rollTwoSuccesses
 
-    rollColumn.appendChild(rollOneRollElement)
     rollColumn.appendChild(rollTwoRollElement)
-    successesColumn.appendChild(rollOneSuccessesElement)
     successesColumn.appendChild(rollTwoSuccessesElement)
   }
+
+
+
   //Append all the elements
   newRow.appendChild(timeStampColumn);
   newRow.appendChild(playerNameColumn);
