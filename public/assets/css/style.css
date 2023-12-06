@@ -1,5 +1,6 @@
-.success{
-    color: lightgreen
+body{
+    background-color: black;
+    color: silver;
 }
 
 .againReroll{
@@ -8,4 +9,18 @@
 
 .roteReroll{
     text-decoration: underline;
+}
+
+.tableNavButton{
+    padding-right: 7px;
+}
+
+.success{
+    color: lightgreen
+}
+
+#tableNav{
+    display: flex;
+    justify-content: center;
+    
 }

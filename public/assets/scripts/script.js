@@ -22,9 +22,7 @@ function roll(dice, wp, rote, again) {
     } else if (roll[roll.length - 1] === 10 && 8 <= again) {
       roll = roll.concat(reroller(again))
       console.log('10-again reroll: ' + roll)
-    }
-
-    if (roll[roll.length - 1] <= 7 && rote) {
+    }else if (roll[roll.length - 1] <= 7 && rote) {
       console.log('rote')
       roll = roll.concat(reroller(again));
       console.log('rote roll: ' + roll)
@@ -348,7 +346,11 @@ function tableRowMaker(rollObj) {
   timeStampColumn.textContent = `${timeStampContent[0]}, ${timeStampContent[1]}`;
   playerNameColumn.textContent = rollObj.playerName;
   rollDescriptionColumn.textContent = rollObj.description;
-  diceColumn.textContent = rollObj.dice;
+  if(rollObj.willpower){
+    diceColumn.textContent = rollObj.dice + 3;
+  }else{
+    diceColumn.textContent = rollObj.dice;
+  }
   modifiersColumn.textContent = modifiersContent;
 
   let rollOneRollElement = rollParser(rollObj.rollOne, rollObj.rollType, rollObj.again, rollObj.rote)
@@ -384,8 +386,16 @@ function tableRowMaker(rollObj) {
 }
 
 function init() {
+  let limit = 5;
+  let queryString;
+  if(!document.location.search){
+    queryString = `?page=1&&limit=${limit}`
+  }else{
+    queryString = `${document.location.search}&&limit=${limit}`
+  }
 
-  fetch('http://localhost:3001/api/roll')
+
+  fetch(`http://localhost:3001/api/roll${queryString}`)
     .then(function (response) {
       return response.json()
     })
@@ -397,6 +407,58 @@ function init() {
         }
       })
     })
+    .catch((err) => {
+      console.log(err.message)
+    })
+
+  fetch('http://localhost:3001/api/roll/pages')
+  .then((function (response){
+    return response.json()
+  }))
+  .then(function (data){
+    let rows = data[0].rollID - data[1].rollID +1
+    let pageTotal = Math.ceil(rows/limit)
+    let tableNav = document.getElementById('tableNav')
+    let prevTab = document.createElement('a')
+    prevTab.innerHTML = 'PREV'
+    let pageNumber = parseInt(document.location.search.split('page=')[1])
+    let prevTabHRef
+    if(pageNumber >=2 ){
+      prevTabHRef = `?page=${pageNumber-1}`
+    }else(
+      prevTabHRef = ''
+    )
+
+    prevTab.setAttribute('href', prevTabHRef)
+    prevTab.setAttribute('class', 'tableNavButton')
+    tableNav.appendChild(prevTab)
+
+    for(let i =1; i <= pageTotal; i++){
+      let newNavTab = document.createElement('a')
+      newNavTab.innerHTML = i
+      newNavTab.setAttribute('href', `?page=${i}`)
+      newNavTab.setAttribute('class', 'tableNavButton')
+      tableNav.appendChild(newNavTab)
+    }
+
+    let nextTab = document.createElement('a')
+    nextTab.innerHTML = 'NEXT'
+    nextTab.setAttribute('class','tableNavButton')
+    let nextTabHRef
+    if(pageNumber < pageTotal){
+      nextTabHRef = `?page=${parseInt(document.location.search.split('page=')[1]) + 1}`
+    }else if(pageNumber === pageTotal){
+      nextTabHRef = ''
+    }else {
+      nextTabHRef = '?page=2'
+    }
+
+    nextTab.setAttribute('href', nextTabHRef)
+    tableNav.appendChild(nextTab)
+  })
+  .catch((err) => {
+    console.log(err.message)
+  })
 }
 
 init()
