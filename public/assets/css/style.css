@@ -1,26 +1,97 @@
 body{
     background-color: black;
     color: silver;
+    overflow-wrap: break-word;
+}
+
+a{
+    color: silver;
+    text-decoration: none;
+}
+
+table{
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 3px solid silver; 
+}
+
+th, td{
+    padding: 5px;
+    border-collapse: collapse;
+    border: 1px solid silver
+}
+
+thead{
+    font-size: large;
+    font-weight: bolder;
+    background-color: darkred;
+
+}
+
+tbody tr:nth-child(odd){
+    background-color:#09090c ;
+  }
+  
+tbody tr:nth-child(even){
+    background-color: #111115;
+}
+
+thead td:nth-child(1){
+    width: 10%;
+}
+
+thead td:nth-child(2){
+    width: 10%;
+}
+
+thead td:nth-child(3){
+    width: 30%;
+}
+
+thead td:nth-child(4){
+    width: 5%;
+}
+
+thead td:nth-child(5){
+    width: 10%;
+}
+
+thead td:nth-child(6){
+    width: 25%;
+}
+
+thead td:nth-child(7){
+    width: 10%;
 }
 
 .againReroll{
     font-weight: bolder;
 }
 
-.roteReroll{
+.currentPage{
+    color: darkred;
     text-decoration: underline;
 }
 
-.tableNavButton{
-    padding-right: 7px;
+.roteReroll{
+    text-decoration: underline;
 }
 
 .success{
     color: lightgreen
 }
 
+.tableNavButton{
+    padding-right: 7px;
+}
+
 #tableNav{
     display: flex;
     justify-content: center;
-    
+}
+
+a:hover{
+    text-decoration: underline;
+    color: darkred;
 }

@@ -217,7 +217,7 @@ rollForm.addEventListener('submit', (e) => {
 
   }
 
-  fetch('http://localhost:3001/api/roll', {
+  fetch('/api/roll', {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -231,11 +231,13 @@ rollForm.addEventListener('submit', (e) => {
   }).then(function (response) {
     return response.json();
   })
-    .then(function (data) {
+  .then(function (data) {
       console.log(data);
-    });
+  })
+  .then(function (){
+    location.assign(location.origin)
+  })
 
-  location.reload()
 })
 
 function rollParser(roll, type, again, rote){
@@ -253,7 +255,6 @@ function rollParser(roll, type, again, rote){
     spanElement.textContent = elem;
 
     //Checks if this roll is due to a reroll
-    //spanElement.setAttribute('class', 'roteReroll');
     if(index-1 >= 0){
       if (arr[index-1] >= again) {
         spanElement.setAttribute('class', 'againReroll');
@@ -300,7 +301,7 @@ function rollParser(roll, type, again, rote){
 
 function tableRowMaker(rollObj) {
   //Creating all the elements to be added to the table
-  let rollTable = document.getElementById('rollTable')
+  let rollTable = document.getElementsByTagName('tbody')[0]
   let newRow = document.createElement('tr');
   let timeStampColumn = document.createElement('td');
   let playerNameColumn = document.createElement('td');
@@ -395,7 +396,7 @@ function init() {
   }
 
 
-  fetch(`http://localhost:3001/api/roll${queryString}`)
+  fetch(`/api/roll${queryString}`)
     .then(function (response) {
       return response.json()
     })
@@ -411,7 +412,7 @@ function init() {
       console.log(err.message)
     })
 
-  fetch('http://localhost:3001/api/roll/pages')
+  fetch('/api/roll/pages')
   .then((function (response){
     return response.json()
   }))
@@ -421,7 +422,7 @@ function init() {
     let tableNav = document.getElementById('tableNav')
     let prevTab = document.createElement('a')
     prevTab.innerHTML = 'PREV'
-    let pageNumber = parseInt(document.location.search.split('page=')[1])
+    let pageNumber = parseInt(document.location.search.split('page=')[1]) || 1
     let prevTabHRef
     if(pageNumber >=2 ){
       prevTabHRef = `?page=${pageNumber-1}`
@@ -437,7 +438,11 @@ function init() {
       let newNavTab = document.createElement('a')
       newNavTab.innerHTML = i
       newNavTab.setAttribute('href', `?page=${i}`)
-      newNavTab.setAttribute('class', 'tableNavButton')
+      if(i === pageNumber){
+        newNavTab.setAttribute('class', 'tableNavButton currentPage')
+      }else{
+        newNavTab.setAttribute('class', 'tableNavButton')
+      }
       tableNav.appendChild(newNavTab)
     }
 
@@ -445,7 +450,7 @@ function init() {
     nextTab.innerHTML = 'NEXT'
     nextTab.setAttribute('class','tableNavButton')
     let nextTabHRef
-    if(pageNumber < pageTotal){
+    if(pageNumber < pageTotal && document.location.search.split('page=')[1]){
       nextTabHRef = `?page=${parseInt(document.location.search.split('page=')[1]) + 1}`
     }else if(pageNumber === pageTotal){
       nextTabHRef = ''
