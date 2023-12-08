@@ -417,42 +417,46 @@ function init() {
     return response.json()
   }))
   .then(function (data){
-    let rows = data[0].rollID - data[1].rollID +1
+    let rows = data
     let pageTotal = Math.ceil(rows/limit)
     let tableNav = document.getElementById('tableNav')
-    let prevTab = document.createElement('a')
+    let prevTab = document.createElement('button')
     prevTab.innerHTML = 'PREV'
     let pageNumber = parseInt(document.location.search.split('page=')[1]) || 1
     let prevTabHRef
+
     if(pageNumber >=2 ){
       prevTabHRef = `?page=${pageNumber-1}`
-    }else(
+    }else{
+      prevTab.setAttribute('disabled', 'True')
       prevTabHRef = ''
-    )
+    }
 
     prevTab.setAttribute('href', prevTabHRef)
     prevTab.setAttribute('class', 'tableNavButton')
     tableNav.appendChild(prevTab)
 
     for(let i =1; i <= pageTotal; i++){
-      let newNavTab = document.createElement('a')
+      let newNavTab = document.createElement('button')
       newNavTab.innerHTML = i
       newNavTab.setAttribute('href', `?page=${i}`)
       if(i === pageNumber){
-        newNavTab.setAttribute('class', 'tableNavButton currentPage')
+        newNavTab.setAttribute('class', 'tableNavButton currentPage numberNav')
+        newNavTab.setAttribute('disabled', 'True')
       }else{
-        newNavTab.setAttribute('class', 'tableNavButton')
+        newNavTab.setAttribute('class', 'tableNavButton numberNav')
       }
       tableNav.appendChild(newNavTab)
     }
 
-    let nextTab = document.createElement('a')
+    let nextTab = document.createElement('button')
     nextTab.innerHTML = 'NEXT'
     nextTab.setAttribute('class','tableNavButton')
     let nextTabHRef
     if(pageNumber < pageTotal && document.location.search.split('page=')[1]){
       nextTabHRef = `?page=${parseInt(document.location.search.split('page=')[1]) + 1}`
     }else if(pageNumber === pageTotal){
+      nextTab.setAttribute('disabled', 'True')
       nextTabHRef = ''
     }else {
       nextTabHRef = '?page=2'
@@ -465,5 +469,13 @@ function init() {
     console.log(err.message)
   })
 }
+
+let tableNav = document.getElementById('tableNav')
+tableNav.addEventListener('click', (e) => {
+  let query;
+  if(e.target.getAttribute('href')){
+    location.search = e.target.getAttribute('href')
+  }
+})
 
 init()

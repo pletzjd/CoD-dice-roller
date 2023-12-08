@@ -19,20 +19,12 @@ router.get('/',(req,res) => {
 })
 
 router.get('/pages',(req,res) => {
-    const maxID = Roll.findOne({
-        attributes: ['rollID'],
-        order: [['rollID', 'DESC']],
+    Roll.count({
+        col: 'rollID'
     })
-
-    const minID = Roll.findOne({
-        attributes: ['rollID'],
-        order: ['rollID'],
+    .then((data) => {
+        res.json(data)
     })
-
-    Promise.all([maxID, minID]).then((values) => {
-        res.json(values)
-    })
-
 })
 
 //Create new roll
