@@ -1,102 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WoD Dice Roller</title>
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" >
-    <script
-    type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
-  ></script>
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 </head>
 
 <body>
-    <div id="title">
+    <header>
         <h1>World of Darkness Dice Roller</h1>
-    </div>
+    </header>
 
-    <div>
-        <form id="rollForm">
-            <div id="container">
-                <section>
-                    <h3>Details</h3>
-                    <p>        
-                        <label for="playerName">Player Name:</label>
-                        <input id="playerName" class="textInput" type="text" placeholder="John Doe">
-                    </p>
-                    <p>        
-                        <label for="rollDescription">Description:</label>
-                        <input id="rollDescription" class="textInput" type="text" placeholder="Description">
-                    </p>
-                    <p>
-                        <label for="dice">Dice Pool:</label>
-                        <input id="dice" class="textInput" type="number" placeholder="0">
-                    </p>
-                </section>
-        
-                <section>
-                    <h3>Agains</h3>
-                    <p>
-                        <input id="10again" type="radio" name="agains" value="10" checked>
-                        <label for="10again">10-Again</label>
-                    </p>
-                    <p>
-                        <input id="9again" type="radio" name="agains" value="9">
-                        <label for="9again">9-Again</label>
-                    </p>
-                    <p>
-                        <input id="8again" type="radio" name="agains" value="8">
-                        <label for="8again">8-Again</label>
-                    </p>
-                    <p>
-                        <input id="noRerolls" type="radio" name="agains" value="0">
-                        <label for="noRerolls">No Re-rolls</label>
-                    </p>
-                </section>
-        
-                <section>
-                    <h3>Modifiers</h3>
-                    <p>
-                        <input id="rote" type="checkbox">
-                        <label for="rote">Rote</label>
-                    </p>
-                    <p>
-                        <input id="willpower" type="checkbox">
-                        <label for="willpower">Use Willpower</label>
-                    </p>
-                    <p>
-                        <input id="advanced" type="checkbox">
-                        <label for="advanced">Advanced Action</label>
-                    </p>
-                </section>
-            </div>
-    
-            <div id="buttons">
-                    <p>
-                        <button type="submit" id="regRoll">Roll</button>
-                    </p>
-    
-                    <p>
-                        <button type="submit" id="chanceRoll">Chance Die</button>
-                    </p>
-    
-                    <p>
-                        <button type="submit" id="initiativeRoll">Initiative</button>
-                    </p>
-            </div>
-    
-    
-        </form>
-    </div>
+
+    <form id="rollForm">
+        <div class="formElement">
+            <section>
+                <h3>Details</h3>
+                <p>
+                    <label for="playerName">Player Name:</label>
+                    <input id="playerName" class="textInput" type="text" placeholder="John Doe">
+                </p>
+                <p>
+                    <label for="rollDescription">Description:</label>
+                    <input id="rollDescription" class="textInput" type="text" placeholder="Description">
+                </p>
+                <p>
+                    <label for="dice">Dice Pool:</label>
+                    <input id="dice" class="textInput" type="number" placeholder="0">
+                </p>
+            </section>
+
+            <section>
+                <h3>Exploding Dice</h3>
+                <p>
+                    <input id="10again" type="radio" name="agains" value="10" checked>
+                    <label for="10again">10-Again</label>
+                </p>
+                <p>
+                    <input id="9again" type="radio" name="agains" value="9">
+                    <label for="9again">9-Again</label>
+                </p>
+                <p>
+                    <input id="8again" type="radio" name="agains" value="8">
+                    <label for="8again">8-Again</label>
+                </p>
+                <p>
+                    <input id="noRerolls" type="radio" name="agains" value="0">
+                    <label for="noRerolls">No Re-rolls</label>
+                </p>
+            </section>
+
+            <section>
+                <h3>Modifiers</h3>
+                <p>
+                    <input id="rote" type="checkbox">
+                    <label for="rote">Rote</label>
+                </p>
+                <p>
+                    <input id="willpower" type="checkbox">
+                    <label for="willpower">Use Willpower</label>
+                </p>
+                <p>
+                    <input id="advanced" type="checkbox">
+                    <label for="advanced">Advanced Action</label>
+                </p>
+            </section>
+        </div>
+
+        <div class="formElement">
+            <p>
+                <button type="submit" id="regRoll">Roll</button>
+            </p>
+
+            <p>
+                <button type="submit" id="chanceRoll">Chance Die</button>
+            </p>
+
+            <p>
+                <button type="submit" id="initiativeRoll">Initiative</button>
+            </p>
+        </div>
+    </form>
 
 
 
-<div>
     <table>
         <thead>
             <tr>
-                <td>Timestamp</td>
+                <td>Date Time</td>
                 <td>Player</td>
                 <td>Description</td>
                 <td>Dice</td>
@@ -108,12 +102,16 @@
         <tbody>
         </tbody>
     </table>
-</div>
 
 
     <div id="tableNav">
     </div>
 
+    <footer>
+        <a href="https://github.com/pletzjd" ><img src="./assets/images/github.png" alt="github"></a>
+    </footer>
+
     <script src="./assets/scripts/script.js"></script>
 </body>
+
 </html>
