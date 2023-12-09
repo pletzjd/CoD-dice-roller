@@ -1,5 +1,6 @@
 /* HTML tags */
 body{
+    font-family:'Times New Roman', Times, serif;
     background-color: black;
     color: silver;
     margin: 0;
@@ -49,11 +50,14 @@ form{
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 10px;
 }
 
 img{
     height: 40px;
+}
+
+input{
+    accent-color: darkred;
 }
 
 section{
@@ -111,7 +115,7 @@ thead {
 }
 
 .textInput{
-    width: 90%;
+    width: 100%;
 }
 
 /* ID */
@@ -211,6 +215,13 @@ thead td:nth-child(7) {
 @media only screen and (max-width: 599px) {
     body, table, thead{
         font-size: x-small;
+    }
+
+}
+
+@media only screen and (max-width: 403px) {
+    body, table, thead{
+        font-size: xx-small;
     }
 
 }

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const {Op} = require("sequelize")
 
 const Roll = require('../../models/Roll.js');
 
@@ -35,5 +36,28 @@ router.post('/', (req, res) => {
       res.json(err);
   });
 });
+
+//Delete rolls older than 6 months
+router.delete('/deleteOld', (req, res) => {
+    let currentDate = new Date;
+    let sixMonthsAgo;
+    if(currentDate.getMonth() <= 5){
+        sixMonthsAgo = new Date(currentDate.getFullYear() - 1, 6 + currentDate.getMonth(), currentDate.getDate())
+    }else{
+        sixMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, currentDate.getDate())
+    }
+
+    Roll.destroy({
+        where: {
+            createdAt: {
+                [Op.lte]: sixMonthsAgo
+            }
+        }
+    })
+    .then((data) => {
+        console.log(data)
+        res.json('Old entries deleted')
+    })  
+})
 
 module.exports = router;
