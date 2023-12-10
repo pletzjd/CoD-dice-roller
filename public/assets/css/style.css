@@ -1,7 +1,7 @@
 /* HTML tags */
 body{
     font-family:'Times New Roman', Times, serif;
-    background-color: black;
+    background-color: #000;
     color: silver;
     margin: 0;
     padding: 0;
@@ -42,14 +42,13 @@ footer{
 }
 
 form{
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #111115;
-    width: fit-content;
     border-radius: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
 }
 
 img{
@@ -92,8 +91,8 @@ thead {
 }
 
 .currentPage {
-    border: silver;
-    border-style: solid;
+    padding: 2px;
+    border: solid 2px silver;
 }
 
 .formElement{
@@ -101,9 +100,21 @@ thead {
     flex-wrap: wrap;
 }
 
+.formLegend{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .numberNav {
     width: 40px;
     height: 40px;
+}
+
+.legend{
+    margin: 10px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .roteReroll {
@@ -213,15 +224,22 @@ thead td:nth-child(7) {
 }
 
 @media only screen and (max-width: 599px) {
-    body, table, thead{
+    body,button, table, thead{
         font-size: x-small;
+    }
+
+    button, .numberNav{
+        height: 30px;
     }
 
 }
 
 @media only screen and (max-width: 403px) {
-    body, table, thead{
+    body, button, table, thead{
         font-size: xx-small;
     }
 
+    button, .numberNav{
+        height: 20px;
+    }
 }
