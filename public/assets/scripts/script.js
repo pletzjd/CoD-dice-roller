@@ -113,6 +113,11 @@ rollForm.addEventListener('submit', (e) => {
       console.log('Willpower: ' + wp);
       let advanced = document.getElementById('advanced').checked;
 
+      if(typeof wp != 'boolean' || typeof rote != 'boolean' || (again != 0 && again != 10 && again != 9 && again != 8)){
+        alert("Please Don't Mess With The HTML")
+        return
+      }
+
       if (advanced) {
         let rollOne = roll(dice, wp, rote, again);
         let rollTwo = roll(dice, wp, rote, again);
@@ -387,14 +392,12 @@ function tableRowMaker(rollObj) {
 }
 
 function init() {
-  let limit = 5;
   let queryString;
   if(!document.location.search){
-    queryString = `?page=1&&limit=${limit}`
+    queryString = '?page=1'
   }else{
-    queryString = `${document.location.search}&&limit=${limit}`
+    queryString = document.location.search
   }
-
 
   fetch(`/api/roll${queryString}`)
     .then(function (response) {
@@ -418,7 +421,7 @@ function init() {
   }))
   .then(function (data){
     let rows = data
-    let pageTotal = Math.ceil(rows/limit)
+    let pageTotal = Math.ceil(rows/5)
     let tableNav = document.getElementById('tableNav')
     let prevTab = document.createElement('button')
     prevTab.innerHTML = 'PREV'
@@ -472,7 +475,6 @@ function init() {
 
 let tableNav = document.getElementById('tableNav')
 tableNav.addEventListener('click', (e) => {
-  let query;
   if(e.target.getAttribute('href')){
     location.search = e.target.getAttribute('href')
   }

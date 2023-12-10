@@ -3,12 +3,24 @@ const {Op} = require("sequelize")
 
 const Roll = require('../../models/Roll.js');
 
+function removeTags(str) {
+    if ((str===null) || (str===''))
+        return false;
+    else
+        str = str.toString();
+  
+    return str.replace( /(<([^>]+)>)/ig, '');
+  }
+
 //Get page limited rolls
 router.get('/',(req,res) => {
-    let limit = parseInt(req.query.limit)
-    let offset = parseInt(req.query.page-1)*limit;
-
-
+    let limit = 5;
+    let offset;
+    if(isNaN(parseInt(req.query.page))){
+        offset = 0;
+    }else{
+        offset = (parseInt(req.query.page)-1)*limit;
+    }
 
     Roll.findAll({
         order: [['rollID','DESC']],
@@ -30,7 +42,14 @@ router.get('/pages',(req,res) => {
 
 //Create new roll
 router.post('/', (req, res) => {
-  Roll.create(req.body).then((newRoll) => {
+    let rollObj = req.body
+     Object.keys(rollObj).forEach(key => {
+        if(typeof rollObj[key] === 'string'){
+            rollObj[key] = removeTags(rollObj[key])
+        }
+    });
+
+  Roll.create(rollObj).then((newRoll) => {
       res.json(newRoll);
   }).catch((err) => {
       res.json(err);
