@@ -49,7 +49,21 @@ router.post('/', (req, res) => {
         }
     });
 
-  Roll.create(rollObj).then((newRoll) => {
+  Roll.create(
+    {
+        rollType: rollObj.rollType,
+        playerName: rollObj.playerName,
+        description: rollObj.description,
+        dice: rollObj.dice,
+        willpower: rollObj.willpower,
+        again: rollObj.again,
+        rote: rollObj.rote,
+        advanced: rollObj.advanced,
+        rollOne: rollObj.rollOne,
+        rollTwo: rollObj.rollTwo,
+        rollOneSuccesses: rollObj.rollOneSuccesses,
+        rollTwoSuccesses: rollObj.rollTwoSuccesses
+    }).then((newRoll) => {
       res.json(newRoll);
   }).catch((err) => {
       res.json(err);

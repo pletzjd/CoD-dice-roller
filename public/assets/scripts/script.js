@@ -113,8 +113,8 @@ rollForm.addEventListener('submit', (e) => {
       console.log('Willpower: ' + wp);
       let advanced = document.getElementById('advanced').checked;
 
-      if(typeof wp != 'boolean' || typeof rote != 'boolean' || (again != 0 && again != 10 && again != 9 && again != 8)){
-        alert("Please Don't Mess With The HTML")
+      // Checks if HTML of form elements was altered
+      if(typeof wp != 'boolean' || typeof rote != 'boolean' || (again != 0 && again != 10 && again != 9 && again != 8 || typeof dice != 'number' || isNaN(dice))){
         return
       }
 
