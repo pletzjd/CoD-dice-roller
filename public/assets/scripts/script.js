@@ -371,6 +371,10 @@ function tableRowMaker(rollObj) {
     //Additonal elements for advanced action
     let rollTwoRollElement = rollParser(rollObj.rollTwo, rollObj.rollType, rollObj.again, rollObj.rote)
     let rollTwoSuccessesElement = document.createElement('p');
+    let rollSpacer = document.createElement('p');
+    let successSpacer = document.createElement('p')
+    rollColumn.appendChild(rollSpacer)
+    successesColumn.appendChild(successSpacer)
 
     rollOneRollElement.setAttribute('class', 'rollOne');
     rollOneSuccessesElement.setAttribute('class', 'successOne')

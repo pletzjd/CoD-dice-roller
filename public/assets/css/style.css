@@ -131,10 +131,6 @@ thead {
     width: 100%;
 }
 
-.rollOne, .successOne{
-    margin-bottom: 0;
-}
-
 /* ID */
 #tableNav {
     display: flex;
@@ -211,34 +207,16 @@ thead td:nth-child(7) {
     /* Class Selectors */
     .rollOne, .successOne{
         margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .rollTwo{
-        padding-left: 14.5ch;
-        margin-bottom: 0;
     }
 
     .rollTwo, .successTwo{
-        margin-top: 0.5rem;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     .singleRoll, .singleSuccess{
         margin-top: 0;
         margin-bottom: 0;
-    }
-
-    .successTwo{
-        padding-left: 15ch;
-    }
-
-    /* Child Selectors */
-    .rollTwo:nth-child(2){
-        display: flex;
-    }
-
-    .rollTwo:nth-child(2) span{
-        margin-left: 0.5ch;
     }
 
     /* Psuedo Elements */
