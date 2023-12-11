@@ -131,9 +131,14 @@ thead {
     width: 100%;
 }
 
+.rollOne, .successOne{
+    margin-bottom: 0;
+}
+
 /* ID */
 #tableNav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
@@ -152,96 +157,120 @@ tbody tr:nth-child(even) {
 }
 
 thead td:nth-child(1) {
-    width: 10%;
+    width: 15%;
     min-width: fit-content;
 }
 
 thead td:nth-child(2) {
-    width: 10%;
+    width: 15.5%;
     min-width: fit-content;
 }
 
 thead td:nth-child(3) {
-    width: 30%;
+    width: 17%;
     min-width: fit-content;
 }
 
 thead td:nth-child(4) {
-    width: 5%;
+    width: 7%;
     min-width: fit-content;
 }
 
 thead td:nth-child(5) {
-    width: 10%;
+    width: 15%;
     min-width: fit-content;
 }
 
 thead td:nth-child(6) {
-    width: 25%;
+    width: 14.5%;
     min-width: fit-content;
 }
 
 thead td:nth-child(7) {
-    width: 10%;
+    width: 14%;
     min-width: fit-content;
 }
 
 /* Media Query */
-@media only screen and (max-width: 952px) {
-    thead td:nth-child(1) {
-        width: 11%;
-        min-width: fit-content;
-    }
-    
-    thead td:nth-child(2) {
-        width: 10%;
-        min-width: fit-content;
-    }
-    
-    thead td:nth-child(3) {
-        width: 18%;
-        min-width: fit-content;
-    }
-    
-    thead td:nth-child(4) {
-        width: 7%;
-        min-width: fit-content;
-    }
-    
-    thead td:nth-child(5) {
-        width: 15%;
-        min-width: fit-content;
-    }
-    
-    thead td:nth-child(6) {
-        width: 23%;
-        min-width: fit-content;
-    }
-    
-    thead td:nth-child(7) {
-        width: 14%;
-        min-width: fit-content;
+@media only screen and (max-width: 600px) {
+    thead{
+        display: none;
     }
 
-}
-
-@media only screen and (max-width: 599px) {
-    body,button, table, thead{
-        font-size: x-small;
+    td{
+        display: grid;
+        grid-template-columns: 15ch auto;
+        border: none;
     }
 
-    button, .numberNav{
-        height: 30px;
+    tr{
+        border: solid silver
     }
 
-}
-
-@media only screen and (max-width: 403px) {
-    body, button, table, thead{
-        font-size: xx-small;
+    .rollOne, .successOne{
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
-    button, .numberNav{
-        height: 20px;
+    .rollTwo{
+        margin-bottom: 0;
+    }
+
+    .rollTwo, .successTwo{
+        margin-top: 0.5rem;
+    }
+
+    .singleRoll, .singleSuccess{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    td:nth-child(1)::before{
+        content: "Date Time: ";
+    }
+
+    td:nth-child(2)::before{
+        content: "Player: ";
+    }
+
+    td:nth-child(3)::before{
+        content: "Description: ";
+    }
+
+    td:nth-child(4)::before{
+        content: "Dice: ";
+    }
+
+    td:nth-child(5)::before{
+        content: "Modifiers: ";
+    }
+
+    td:nth-child(6)::before{
+        content: "Rolls: ";
+    }
+
+    td:nth-child(7)::before{
+        content: "Success: ";
+    }
+
+    .rollTwo{
+        padding-left: 14.5ch;
+    }
+
+    .rollTwo:nth-child(2){
+        display: flex;
+    }
+
+    .successTwo{
+        padding-left: 15ch;
+    }
+
+    .rollTwo:nth-child(2) span{
+        margin-left: 0.5ch;
+    }
+
+    ::before{
+        font-weight: bolder;
+        color: darkred;
     }
 }

@@ -249,6 +249,7 @@ function rollParser(roll, type, again, rote){
   if(!again){
     again = 11;
   }
+
   let rollElement = document.createElement('p');
 
   roll = roll.split(',');
@@ -371,10 +372,19 @@ function tableRowMaker(rollObj) {
     let rollTwoRollElement = rollParser(rollObj.rollTwo, rollObj.rollType, rollObj.again, rollObj.rote)
     let rollTwoSuccessesElement = document.createElement('p');
 
+    rollOneRollElement.setAttribute('class', 'rollOne');
+    rollOneSuccessesElement.setAttribute('class', 'successOne')
+
+    rollTwoRollElement.setAttribute('class', 'rollTwo')
+    rollTwoSuccessesElement.setAttribute('class', 'successTwo')
+
     rollTwoSuccessesElement.textContent = rollObj.rollTwoSuccesses
 
     rollColumn.appendChild(rollTwoRollElement)
     successesColumn.appendChild(rollTwoSuccessesElement)
+  }else{
+    rollOneRollElement.setAttribute('class', 'singleRoll');
+    rollOneSuccessesElement.setAttribute('class', 'singleSuccess')
   }
 
 
