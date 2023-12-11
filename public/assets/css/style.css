@@ -142,7 +142,7 @@ thead {
     justify-content: center;
     align-items: center;
 }
-/* Psuedo elements */
+/* Psuedo Class */
 button:hover {
     color: darkred;
     background-color: silver;
@@ -193,6 +193,7 @@ thead td:nth-child(7) {
 
 /* Media Query */
 @media only screen and (max-width: 600px) {
+    /* Tag Selectors */
     thead{
         display: none;
     }
@@ -207,12 +208,14 @@ thead td:nth-child(7) {
         border: solid silver
     }
 
+    /* Class Selectors */
     .rollOne, .successOne{
         margin-top: 0;
         margin-bottom: 0;
     }
 
     .rollTwo{
+        padding-left: 14.5ch;
         margin-bottom: 0;
     }
 
@@ -223,6 +226,25 @@ thead td:nth-child(7) {
     .singleRoll, .singleSuccess{
         margin-top: 0;
         margin-bottom: 0;
+    }
+
+    .successTwo{
+        padding-left: 15ch;
+    }
+
+    /* Child Selectors */
+    .rollTwo:nth-child(2){
+        display: flex;
+    }
+
+    .rollTwo:nth-child(2) span{
+        margin-left: 0.5ch;
+    }
+
+    /* Psuedo Elements */
+    ::before{
+        font-weight: bolder;
+        color: darkred;
     }
 
     td:nth-child(1)::before{
@@ -251,26 +273,5 @@ thead td:nth-child(7) {
 
     td:nth-child(7)::before{
         content: "Success: ";
-    }
-
-    .rollTwo{
-        padding-left: 14.5ch;
-    }
-
-    .rollTwo:nth-child(2){
-        display: flex;
-    }
-
-    .successTwo{
-        padding-left: 15ch;
-    }
-
-    .rollTwo:nth-child(2) span{
-        margin-left: 0.5ch;
-    }
-
-    ::before{
-        font-weight: bolder;
-        color: darkred;
     }
 }
