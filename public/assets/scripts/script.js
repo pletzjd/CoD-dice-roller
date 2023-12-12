@@ -419,7 +419,7 @@ function init() {
   }))
   .then(function (data){
     let rows = data
-    let pageTotal = Math.ceil(rows/5)
+    let pageTotal = Math.ceil(rows/25)
     let tableNav = document.getElementById('tableNav')
     let prevTab = document.createElement('button')
     prevTab.innerHTML = 'PREV'

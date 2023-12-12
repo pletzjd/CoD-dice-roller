@@ -8,11 +8,11 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST || 'localhost',
     dialect: 'mysql',
-    // dialectOptions: {
-    //   ssl: {
-    //       rejectUnauthorized: true,        
-    //   }
-    // }
+    dialectOptions: {
+      ssl: {
+          rejectUnauthorized: true,        
+      }
+    }
   }
 );
 

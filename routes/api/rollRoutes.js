@@ -14,7 +14,7 @@ function removeTags(str) {
 
 //Get page limited rolls
 router.get('/',(req,res) => {
-    let limit = 5;
+    let limit = 25;
     let offset;
     if(isNaN(parseInt(req.query.page))){
         offset = 0;
