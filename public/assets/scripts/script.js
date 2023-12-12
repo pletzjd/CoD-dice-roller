@@ -413,22 +413,6 @@ function init() {
     queryString = document.location.search
   }
 
-  fetch(`/api/roll${queryString}`)
-    .then(function (response) {
-      return response.json()
-    })
-    .then(function (data) {
-      data.forEach((rollObj) => {
-        console.log(rollObj)
-        if(rollObj){
-          tableRowMaker(rollObj)
-        }
-      })
-    })
-    .catch((err) => {
-      console.log(err.message)
-    })
-
   fetch('/api/roll/pages')
   .then((function (response){
     return response.json()
@@ -481,6 +465,22 @@ function init() {
 
     nextTab.setAttribute('href', nextTabHRef)
     tableNav.appendChild(nextTab)
+  })
+  .catch((err) => {
+    console.log(err.message)
+  })
+
+  fetch(`/api/roll${queryString}`)
+  .then(function (response) {
+    return response.json()
+  })
+  .then(function (data) {
+    data.forEach((rollObj) => {
+      console.log(rollObj)
+      if(rollObj){
+        tableRowMaker(rollObj)
+      }
+    })
   })
   .catch((err) => {
     console.log(err.message)
