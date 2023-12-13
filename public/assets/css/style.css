@@ -1,8 +1,17 @@
+/*Variables*/
+:root{
+    --main-color: darkred;
+    --secondary-color: silver;
+    --main-background-color: #000;
+    --secondary-background-color: #111115;
+    --tertiary-background-color: #09090c;
+    --success: lightgreen;
+  }
+
 /* HTML tags */
 body{
-    font-family:'Times New Roman', Times, serif;
-    background-color: #000;
-    color: silver;
+    background-color: var(--main-background-color);
+    color: var(--secondary-color);
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -14,12 +23,12 @@ body{
 }
 
 button{
-    background-color: darkred;
+    background-color: var(--main-color);
     height: 40px;
-    color: silver;
+    color: var(--secondary-color);
     border: none;
     border-radius: 5px;
-    width: 60px;
+    width: 10ch;
     margin: 5px;
     padding: 5px;
     cursor: pointer;
@@ -29,7 +38,7 @@ button{
 footer,
 header{
     width: 100%;
-    background-color: darkred;
+    background-color: var(--main-color);
     text-align: center;
 }
 
@@ -46,7 +55,7 @@ form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #111115;
+    background-color: var(--secondary-background-color);
     border-radius: 10px;
     margin: 10px;
 }
@@ -58,7 +67,7 @@ img{
 }
 
 input{
-    accent-color: darkred;
+    accent-color: var(--main-color);
 }
 
 section{
@@ -70,20 +79,20 @@ table {
     table-layout: fixed;
     width: 99.9%;
     border-collapse: collapse;
-    border: 3px solid silver;
+    border: 3px solid var(--secondary-color);
 }
 
 td,
 th {
     padding: 5px;
     border-collapse: collapse;
-    border: 1px solid silver;
+    border: 1px solid var(--secondary-color);
 }
 
 thead {
     font-size: large;
     font-weight: bolder;
-    background-color: darkred;
+    background-color: var(--main-color);
 
 }
 
@@ -94,7 +103,7 @@ thead {
 
 .currentPage {
     padding: 2px;
-    border: solid 2px silver;
+    border: solid 2px var(--secondary-color);
 }
 
 .formElement{
@@ -124,7 +133,7 @@ thead {
 }
 
 .success {
-    color: lightgreen;
+    color: var(--success);
 }
 
 .textInput{
@@ -140,16 +149,16 @@ thead {
 }
 /* Psuedo Class */
 button:hover {
-    color: darkred;
-    background-color: silver;
+    color: var(--main-color);
+    background-color: var(--secondary-color);
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #09090c;
+    background-color: var(--tertiary-background-color);
 }
 
 tbody tr:nth-child(even) {
-    background-color: #111115;
+    background-color: var(--secondary-background-color);
 }
 
 thead td:nth-child(1) {
@@ -201,7 +210,7 @@ thead td:nth-child(7) {
     }
 
     tr{
-        border: solid silver
+        border: solid var(--secondary-color);
     }
 
     /* Class Selectors */
@@ -222,7 +231,7 @@ thead td:nth-child(7) {
     /* Psuedo Elements */
     ::before{
         font-weight: bolder;
-        color: darkred;
+        color: var(--main-color);
     }
 
     td:nth-child(1)::before{
