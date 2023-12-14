@@ -40,6 +40,19 @@ router.get('/pages',(req,res) => {
     })
 })
 
+router.get('/date', (req,res) => {
+    let date = req.query.date.replace('+','T').concat('.000Z')
+
+    Roll.findAll({
+        order: [['rollID', 'DESC']],
+        where: {
+            createdAt:{
+                [Op.eq]: date
+            }
+        }
+    }).then((roll) => {res.json(roll)})
+})
+
 //Create new roll
 router.post('/', (req, res) => {
     let rollObj = req.body

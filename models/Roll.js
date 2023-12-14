@@ -48,6 +48,12 @@ Roll.init(
     }
   },
   {
+    indexes: [
+        {   
+            using: 'BTREE',
+            fields: ['createdAt'],
+        }
+    ],
     sequelize,
     updatedAt: false,
     freezeTableName: true,
