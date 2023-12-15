@@ -9,6 +9,7 @@
   }
 
 /* HTML tags */
+
 body{
     background-color: var(--main-background-color);
     color: var(--secondary-color);
@@ -23,6 +24,8 @@ body{
 }
 
 button{
+    font-family: 'RocknRoll One', sans-serif;
+    font-size: smaller;
     background-color: var(--main-color);
     height: 40px;
     color: var(--secondary-color);
@@ -40,6 +43,11 @@ header{
     width: 100%;
     background-color: var(--main-color);
     text-align: center;
+}
+
+form,
+h1{
+    font-family: 'RocknRoll One', sans-serif;
 }
 
 footer{
@@ -89,11 +97,23 @@ th {
     border: 1px solid var(--secondary-color);
 }
 
+tbody > *{
+    font-family: 'RocknRoll One', sans-serif;
+    font-weight: 100;
+    font-size: 0.72rem;
+}
+
 thead {
     font-size: large;
     font-weight: bolder;
     background-color: var(--main-color);
 
+}
+
+thead > * {
+    font-family: 'RocknRoll One', sans-serif;
+    font-weight: 400;
+    font-size: 0.85rem;
 }
 
 /* Classes */
@@ -112,6 +132,7 @@ thead {
 }
 
 .formLegend{
+    font-family: 'RocknRoll One', sans-serif;
     display: flex;
     flex-wrap: wrap;
 }
