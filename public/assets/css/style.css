@@ -220,6 +220,7 @@ thead td:nth-child(7) {
 /* Media Query */
 @media only screen and (max-width: 600px) {
     /* Tag Selectors */
+
     thead{
         display: none;
     }
@@ -228,6 +229,7 @@ thead td:nth-child(7) {
         display: grid;
         grid-template-columns: 15ch auto;
         border: none;
+        font-size: 1rem;
     }
 
     tr{
