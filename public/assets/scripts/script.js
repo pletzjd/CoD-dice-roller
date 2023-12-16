@@ -10,29 +10,19 @@ function roll(dice, wp, rote, again) {
 
     roll.push(singleRoll());
 
-    console.log('roll: ' + roll)
-
-
     if (roll[roll.length - 1] === 8 && again === 8) {
       roll = roll.concat(reroller(again));
-      console.log('8-again reroll: ' + roll)
     } else if (roll[roll.length - 1] === 9 && 8 <= again && again <= 9) {
       roll = roll.concat(reroller(again))
-      console.log('9-again reroll: ' + roll)
     } else if (roll[roll.length - 1] === 10 && 8 <= again) {
       roll = roll.concat(reroller(again))
-      console.log('10-again reroll: ' + roll)
     }else if (roll[roll.length - 1] <= 7 && rote) {
-      console.log('rote')
       roll = roll.concat(reroller(again));
-      console.log('rote roll: ' + roll)
     }
 
   }
-  console.log('result: ' + roll)
 
   roll.forEach(x => { if (x >= 8) { successes++ } })
-  console.log('successes: ' + successes)
 
   return [roll, successes];
 }
@@ -54,8 +44,6 @@ function chanceRoll() {
   let roll = singleRoll();
   let result;
 
-  console.log('roll: ' + roll);
-
   if (roll === 10) {
     result = 'success';
   } else if (roll <= 9 && roll >= 2) {
@@ -63,8 +51,6 @@ function chanceRoll() {
   } else {
     result = 'dramatic fail';
   }
-
-  console.log('result: ' + result);
 
   return [roll, result];
 
@@ -84,20 +70,14 @@ let rollForm = document.getElementById('rollForm')
 
 rollForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  console.log('%c------------------New Roll------------------', 'background: #89CFF0;')
-  let timeStamp = moment().format('YYYY-MM-DD HH:mm:ss')
-  console.log('rolled at: ' + timeStamp)
   let playerName = document.getElementById('playerName').value
-  console.log('Player Name: ' + playerName)
   let description = document.getElementById('rollDescription').value
   let rollObj;
 
 
   if (e.submitter.id === 'regRoll') {
     let rollResult;
-    console.log('Description: ' + description)
     let dice = parseInt(document.getElementById('dice').value)
-    console.log('Dice pool: ' + dice)
 
     if (!playerName || !description || !dice || dice <= 0) {
       alert('Be sure to fill in Player Name, Desctiption and Dice Pool for normal rolls');
@@ -106,11 +86,8 @@ rollForm.addEventListener('submit', (e) => {
       let again;
       let agains = document.querySelectorAll('input[name="agains"]');
       agains.forEach(x => { if (x.checked) { again = parseInt(x.value) } });
-      console.log('Again: ' + again);
       let rote = document.getElementById('rote').checked;
-      console.log('Rote: ' + rote);
       let wp = document.getElementById('willpower').checked;
-      console.log('Willpower: ' + wp);
       let advanced = document.getElementById('advanced').checked;
 
       // Checks if HTML of form elements was altered
@@ -121,11 +98,6 @@ rollForm.addEventListener('submit', (e) => {
       if (advanced) {
         let rollOne = roll(dice, wp, rote, again);
         let rollTwo = roll(dice, wp, rote, again);
-
-        console.log('Roll 1: ' + rollOne[0]);
-        console.log('Roll 2: ' + rollTwo[0]);
-        console.log('Roll 1 successes: ' + rollOne[1]);
-        console.log('Roll 2 successes: ' + rollTwo[1]);
 
         rollObj = {
           rollType: 'reg',
@@ -141,8 +113,6 @@ rollForm.addEventListener('submit', (e) => {
           rollOneSuccesses: rollOne[1].toString(),
           rollTwoSuccesses: rollTwo[1]
         }
-
-        console.log(rollObj)
 
       } else {
         rollResult = roll(dice, wp, rote, again);
@@ -161,13 +131,10 @@ rollForm.addEventListener('submit', (e) => {
           rollOneSuccesses: rollResult[1].toString(),
           rollTwoSuccesses: null
         }
-
-        console.log(rollObj)
       }
     }
 
   } else if (e.submitter.id === 'chanceRoll') {
-    console.log('Description: ' + description)
 
     if (!playerName || !description) {
       alert('Be sure to fill in Player Name and Desctiption for chance rolls');
@@ -189,7 +156,6 @@ rollForm.addEventListener('submit', (e) => {
         rollOneSuccesses: rollResult[1],
         rollTwoSuccesses: null
       }
-      console.log(rollObj);
     }
 
   } else if (e.submitter.id === 'initiativeRoll') {
@@ -199,9 +165,7 @@ rollForm.addEventListener('submit', (e) => {
       return;
     } else {
       description = 'Initiative';
-      console.log('Description: ' + description);
       rollResult = singleRoll();
-      console.log('roll: ' + rollResult);
 
       rollObj = {
         rollType: 'initiative',
@@ -217,9 +181,7 @@ rollForm.addEventListener('submit', (e) => {
         rollOneSuccesses: null,
         rollTwoSuccesses: null
       }
-      console.log(rollObj);
     }
-
   }
 
   fetch('/api/roll', {
@@ -235,9 +197,6 @@ rollForm.addEventListener('submit', (e) => {
     body: JSON.stringify(rollObj),
   }).then(function (response) {
     return response.json();
-  })
-  .then(function (data) {
-      console.log(data);
   })
   .then(function (){
     location.assign(location.origin)
@@ -267,7 +226,6 @@ function rollParser(roll, type, again, rote){
         wasRoteReRoll = false;
         wasAgainReRoll = true;
       } else if (rote && arr[index-1] <= 7) {
-        // console.log(arr)
         if(index-2 >= 0 && arr[index-2] <= again && !wasRoteReRoll && !wasAgainReRoll){
           spanElement.setAttribute('class', 'roteReroll');
           wasRoteReRoll = true;
@@ -318,7 +276,6 @@ function tableRowMaker(rollObj) {
   let successesColumn = document.createElement('td');
 
   // Modifies content from roll object to be added as text content later
-  console.log(typeof rollObj.createdAt);
   let timeStampContent = rollObj.createdAt.split('T');
   timeStampContent[1] = timeStampContent[1].split('.')[0];
 
@@ -476,7 +433,6 @@ function init() {
   })
   .then(function (data) {
     data.forEach((rollObj) => {
-      console.log(rollObj)
       if(rollObj){
         tableRowMaker(rollObj)
       }
