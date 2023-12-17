@@ -1,17 +1,20 @@
 /*Variables*/
 :root{
-    --main-color: darkred;
-    --secondary-color: silver;
+    --main-color: rgba(32, 43, 45, 0.97);
+    --secondary-color: rgb(174, 174, 174);
     --main-background-color: #000;
     --secondary-background-color: #111115;
     --tertiary-background-color: #09090c;
     --success: lightgreen;
+    --button: #104784;
   }
 
 /* HTML tags */
 
 body{
     background-color: var(--main-background-color);
+    background-image: url(https://images.unsplash.com/photo-1512075622870-bcc3993c173e?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-position: center;
     color: var(--secondary-color);
     margin: 0;
     padding: 0;
@@ -26,7 +29,7 @@ body{
 button{
     font-family: 'RocknRoll One', sans-serif;
     font-size: smaller;
-    background-color: var(--main-color);
+    background-color: var(--button);
     height: 40px;
     color: var(--secondary-color);
     border: none;
@@ -135,6 +138,7 @@ thead > * {
     font-family: 'RocknRoll One', sans-serif;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .numberNav {
@@ -143,6 +147,7 @@ thead > * {
 }
 
 .legend{
+    background-color: var(--secondary-background-color);
     margin: 10px;
     border-radius: 10px;
     padding-left: 10px;
@@ -170,7 +175,7 @@ thead > * {
 }
 /* Psuedo Class */
 button:hover {
-    color: var(--main-color);
+    color: var(--button);
     background-color: var(--secondary-color);
 }
 
@@ -254,7 +259,7 @@ thead td:nth-child(7) {
     /* Psuedo Elements */
     ::before{
         font-weight: bolder;
-        color: var(--main-color);
+        color: var(--secondary-color);
     }
 
     td:nth-child(1)::before{
