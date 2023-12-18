@@ -399,10 +399,10 @@ function init() {
       newNavTab.innerHTML = i
       newNavTab.setAttribute('href', `?page=${i}`)
       if(i === pageNumber){
-        newNavTab.setAttribute('class', 'tableNavButton currentPage numberNav')
+        newNavTab.setAttribute('class', 'currentPage numberNav')
         newNavTab.setAttribute('disabled', 'True')
       }else{
-        newNavTab.setAttribute('class', 'tableNavButton numberNav')
+        newNavTab.setAttribute('class', 'numberNav')
       }
       tableNav.appendChild(newNavTab)
     }
