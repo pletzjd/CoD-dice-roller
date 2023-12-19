@@ -2,9 +2,9 @@
 :root{
     --main-color: rgba(32, 43, 45, 0.97);
     --secondary-color: rgb(174, 174, 174);
-    --main-background-color: #000;
-    --secondary-background-color: #111115;
-    --tertiary-background-color: #09090c;
+    --lazy-background-color: #000;
+    --zebra1-color: #111115;/*table zebra pattern color */
+    --zebra2-color: #09090c;/*table zebra pattern color */
     --success: lightgreen;
     --button: #104784;
   }
@@ -12,9 +12,10 @@
 /* HTML tags */
 
 body{
-    background-color: var(--main-background-color);
-    background-image: url(https://images.unsplash.com/photo-1512075622870-bcc3993c173e?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-color: var(--lazy-background-color);
+    background-image: url('../images/background.avif'); /*image source: https://images.unsplash.com/photo-1512075622870-bcc3993c173e?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */
     background-position: center;
+    background-attachment: fixed;
     color: var(--secondary-color);
     margin: 0;
     padding: 0;
@@ -69,6 +70,10 @@ form{
     background-color: var(--main-color);
     border-radius: 10px;
     margin: 10px;
+}
+
+h1 {
+    margin-left: 5rem;
 }
 
 img{
@@ -184,11 +189,11 @@ button:hover {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: var(--tertiary-background-color);
+    background-color: var(--zebra1-color);
 }
 
 tbody tr:nth-child(even) {
-    background-color: var(--secondary-background-color);
+    background-color: var(--zebra2-color);
 }
 
 thead td:nth-child(1) {
