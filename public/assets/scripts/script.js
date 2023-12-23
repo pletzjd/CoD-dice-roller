@@ -142,6 +142,7 @@ function tableRowMaker(rollObj) {
   let rollTable = document.getElementsByTagName('tbody')[0]
   let newRow = document.createElement('tr');
   let timeStampColumn = document.createElement('td');
+  let timeStampLink = document.createElement('a')
   let playerNameColumn = document.createElement('td');
   let rollDescriptionColumn = document.createElement('td');
   let diceColumn = document.createElement('td');
@@ -153,6 +154,7 @@ function tableRowMaker(rollObj) {
   // Prepares Date Time column
   let timeStampContent = rollObj.createdAt.split('T');
   timeStampContent[1] = timeStampContent[1].split('.')[0];
+  timeStampLink.setAttribute('href',`?roll=${rollObj.rollID}`)
 
   //Prepares modifiers column
   let modifiersContent;
@@ -182,7 +184,8 @@ function tableRowMaker(rollObj) {
   }
 
   //Adding content to table elements
-  timeStampColumn.textContent = `${timeStampContent[0]}, ${timeStampContent[1]}`;
+  timeStampLink.textContent = `${timeStampContent[0]}, ${timeStampContent[1]}`;
+  timeStampColumn.appendChild(timeStampLink)
   playerNameColumn.textContent = rollObj.playerName;
   rollDescriptionColumn.textContent = rollObj.description;
   if(rollObj.willpower){
@@ -312,11 +315,13 @@ function init() {
     return response.json()
   })
   .then(function (data) {
-    data.forEach((rollObj) => {
-      if(rollObj){
+    if (queryString.split('=')[0] === '?page'){
+      data.forEach((rollObj) => {
         tableRowMaker(rollObj)
-      }
-    })
+      })
+    }else(
+      tableRowMaker(data)
+    )
   })
   .catch((err) => {
     console.log(err.message)

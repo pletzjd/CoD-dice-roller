@@ -14,23 +14,28 @@ function removeTags(str) {
 
 //Get page limited rolls
 router.get('/',(req,res) => {
-    let limit = 25;
-    let offset;
-    if(isNaN(parseInt(req.query.page))){
-        offset = 0;
+    if (req.query.page){
+        let limit = 25;
+        let offset;
+        if(isNaN(parseInt(req.query.page))){
+            offset = 0;
+        }else{
+            offset = (parseInt(req.query.page)-1)*limit;
+        }
+    
+        Roll.findAll({
+            order: [['rollID','DESC']],
+            offset: offset,
+            limit: limit
+        }).then((rollData) => {
+            res.json(rollData)
+        })
     }else{
-        offset = (parseInt(req.query.page)-1)*limit;
+        Roll.findByPk(req.query.roll).then(rollData => res.json(rollData))
     }
 
-    Roll.findAll({
-        order: [['rollID','DESC']],
-        offset: offset,
-        limit: limit
-    }).then((rollData) => {
-        res.json(rollData)
-    })
 })
-
+// Return total number of columns to be used in pagination
 router.get('/pages',(req,res) => {
     Roll.count({
         col: 'rollID'
@@ -40,6 +45,7 @@ router.get('/pages',(req,res) => {
     })
 })
 
+// Returns a roll based on the date time given
 router.get('/date', (req,res) => {
     let date = req.query.date.replace('+','T').concat('.000Z')
 

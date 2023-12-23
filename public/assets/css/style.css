@@ -107,6 +107,10 @@ th {
     border: 1px solid var(--secondary-color);
 }
 
+td a {
+    color: var(--secondary-color)
+}
+
 tbody > *{
     font-family: 'RocknRoll One', sans-serif;
     font-weight: 100;
