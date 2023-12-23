@@ -29,7 +29,7 @@ The roll form is at the top of the page with fields for name, a description of t
 
 At the bottom of the roll form are buttons to do a normal roll (success on 8,9 and 10), roll a chance die (1 die, success on 10, dramatic failure on 1) or to do an initiative roll (1 die, successes not applicable)
 
-below the roll form is the roll history table displaying a timestamp of when the roll was done, the player who rolled, the description they gave, their dice pool (after willpower is applied if applicable), what type of exploding dice/modifies/type, the result of the roll (with visual indications of successes and rerolls) and a count of the number of successes if applicable. Above the table beside the roll form details the significance of the color/text decorations of the numbers in the roll.
+Below the roll form is the roll history table displaying a timestamp of when the roll was done (which can be clicked to display only that roll in the table), the player who rolled, the description they gave, their dice pool (after willpower is applied if applicable), what type of exploding dice/modifies/type, the result of the roll (with visual indications of successes and rerolls) and a count of the number of successes if applicable. Above the table beside the roll form details the significance of the color/text decorations of the numbers in the roll.
 
 Below the table are navigation buttons to view rolls older than the last 25 rolls, with 25 rolls being displayed per page. A cron job is implimented to delete rolls older than 6 months to as the information should no longer be needed after that and to prevent the database from exeding the size limit of the free database offered by [planetscale](https://planetscale.com/).
 
