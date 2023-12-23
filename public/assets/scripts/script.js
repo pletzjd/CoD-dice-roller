@@ -280,7 +280,7 @@ function init() {
       let newNavTab = document.createElement('button')
       newNavTab.innerHTML = i
       newNavTab.setAttribute('href', `?page=${i}`)
-      if(i === pageNumber){
+      if(i === pageNumber && queryString.split('=')[0] === '?page'){
         newNavTab.setAttribute('class', 'currentPage numberNav')
         newNavTab.setAttribute('disabled', 'True')
       }else{
