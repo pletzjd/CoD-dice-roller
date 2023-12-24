@@ -1,9 +1,8 @@
 const express = require('express')
 const sequelize = require('./config/connection');
 const cron = require('node-cron');
-const fs = require('fs')
 const fetch = (...args) =>
-	import('node-fetch').then(({default: fetch}) => fetch(...args));
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const rateLimit = require('express-rate-limit')
 
 const app = express()
@@ -24,41 +23,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 app.use(routes)
 
-
-let currentMonth;
-let cronMonth;
-
-cron.schedule('*/15 * * * *', () => {
-  currentMonth = (new Date).getMonth().toString()
+cron.schedule('0 0 1 * *', () => {
   const url = `http://${Host}:${Port}/api/roll/deleteOld`
-  fs.readFile('delete.txt','utf8',(error, data) =>{
-    cronMonth = data
-    if(cronMonth != currentMonth){
-      fetch(url, {
-        method: "DELETE",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-      }).then(function (response) {
-        return response.json();
-      }).then((response) => {
-        fs.writeFile('delete.txt', currentMonth, (err) =>
-        err ? console.error(err) : console.log('Success!'))
-        cronMonth = currentMonth
-        console.log('Performed cron')
-      })
-      .catch((err) => {console.log(err)})
-    }else{
-      console.log('cron job already performed this month')
-    }
-  })
+  fetch(url, {
+    method: "DELETE",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  }).then(function (response) {
+    return response.json();
+  }).catch((err) => { console.log(err) })
 })
 
 sequelize.sync({ force: false }).then(() => {
-    app.listen(Port, () => console.log(`Listening on http://localhost:${Port}`));
-  });
+  app.listen(Port, () => console.log(`Listening on http://localhost:${Port}`));
+});
