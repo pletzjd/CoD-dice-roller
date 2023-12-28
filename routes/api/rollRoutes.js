@@ -89,20 +89,20 @@ router.post('/', (req, res) => {
   });
 });
 
-//Delete rolls older than 6 months
+//Delete rolls older than 2 months
 router.delete('/deleteOld', (req, res) => {
     let currentDate = new Date;
-    let sixMonthsAgo;
-    if(currentDate.getMonth() <= 5){
-        sixMonthsAgo = new Date(currentDate.getFullYear() - 1, 6 + currentDate.getMonth(), currentDate.getDate())
+    let twoMonthsAgo;
+    if(currentDate.getMonth() <= 1){
+        twoMonthsAgo = new Date(currentDate.getFullYear() - 1, 10 + currentDate.getMonth(), currentDate.getDate())
     }else{
-        sixMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, currentDate.getDate())
+        twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate())
     }
 
     Roll.destroy({
         where: {
             createdAt: {
-                [Op.lte]: sixMonthsAgo
+                [Op.lte]: twoMonthsAgo
             }
         }
     })
