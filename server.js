@@ -3,20 +3,20 @@ const sequelize = require('./config/connection');
 const cron = require('node-cron');
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const rateLimit = require('express-rate-limit')
+// const rateLimit = require('express-rate-limit')
 
 const app = express()
 const routes = require('./routes')
 const Port = process.env.PORT || 3001
 const Host = process.env.HOST || 'localhost'
 
-const limiter = rateLimit({
-  windowMs: 1000,
-  max: 6,
-  message: 'To many requests from this IP. Please try again.'
-})
+// const limiter = rateLimit({
+//   windowMs: 1000,
+//   max: 6,
+//   message: 'To many requests from this IP. Please try again.'
+// })
 
-app.use('/api/', limiter)
+// app.use('/api/', limiter)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
