@@ -1,12 +1,22 @@
-# World of Darkness Dice Roller
+# Chronicles of Darkness Dice Roller
 
 ## Description
 
-This site was built at the request of the owner of [Eternal Noire](https://eternalnoire.com/) to as a replacement for the site they were using at the time as it was missing features they desired:
+This site was built at the request of the owner of [Eternal Noire](https://eternalnoire.com/) as a replacement for the site they were using at the time as it was missing features they desired:
 
 - Advanced action option for rolls
 - The ability to do a Chance Die roll
 - Roll history going back further than the last 25 rolls
+
+Along with maintaining features from the old dice roller: 
+
+- Normal rolls
+- Initiative rolls
+- Linking to a specific roll
+- 10-Again, 9-Again, 8-again or no exploding dice
+- Rote Action (reroll fails of initial dice once)
+- Use Willpower (add three dice to roll)
+- Visual indicators for success, dice rerolled from exploding dice and dice rerolled from rote action
 
 ## Live Deployment link
 
