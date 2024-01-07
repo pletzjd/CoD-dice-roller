@@ -1,9 +1,10 @@
 const express = require('express')
 const sequelize = require('./config/connection');
 const cron = require('node-cron');
-const fetch = (...args) =>
-  import('node-fetch').then(({ default: fetch }) => fetch(...args));
 // const rateLimit = require('express-rate-limit')
+const {Op} = require("sequelize")
+
+const Roll = require('./models/Roll.js');
 
 const app = express()
 const routes = require('./routes')
@@ -23,21 +24,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 app.use(routes)
 
+//Delete rolls older than 2 months at the start of each month
 cron.schedule('0 0 1 * *', () => {
-  const url = `http://${Host}:${Port}/api/roll/deleteOld`
-  fetch(url, {
-    method: "DELETE",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-  }).then(function (response) {
-    return response.json();
-  }).catch((err) => { console.log(err) })
+  let currentDate = new Date;
+  let twoMonthsAgo;
+  if(currentDate.getMonth() <= 1){
+      twoMonthsAgo = new Date(currentDate.getFullYear() - 1, 10 + currentDate.getMonth(), currentDate.getDate())
+  }else{
+      twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate())
+  }
+
+  Roll.destroy({
+      where: {
+          createdAt: {
+              [Op.lte]: twoMonthsAgo
+          }
+      }
+  })
+  .then((data) => {
+      console.log(data)
+  })
 })
 
 sequelize.sync({ force: false }).then(() => {

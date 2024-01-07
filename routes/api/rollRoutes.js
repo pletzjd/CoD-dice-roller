@@ -89,27 +89,4 @@ router.post('/', (req, res) => {
   });
 });
 
-//Delete rolls older than 2 months
-router.delete('/deleteOld', (req, res) => {
-    let currentDate = new Date;
-    let twoMonthsAgo;
-    if(currentDate.getMonth() <= 1){
-        twoMonthsAgo = new Date(currentDate.getFullYear() - 1, 10 + currentDate.getMonth(), currentDate.getDate())
-    }else{
-        twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate())
-    }
-
-    Roll.destroy({
-        where: {
-            createdAt: {
-                [Op.lte]: twoMonthsAgo
-            }
-        }
-    })
-    .then((data) => {
-        console.log(data)
-        res.json('Old entries deleted')
-    })  
-})
-
 module.exports = router;
