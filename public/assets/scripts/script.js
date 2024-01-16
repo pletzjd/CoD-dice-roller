@@ -37,7 +37,7 @@ function reroller(again) {
   // Continues rerolling if new reroll triggers exploding dice
   if (reRoll[0] >= again && again) {
     let recall = reroller(again);
-    reroll = reRoll.concat(recall);
+    reRoll = reRoll.concat(recall);
   }
 
   return reRoll
