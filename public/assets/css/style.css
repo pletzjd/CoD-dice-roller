@@ -274,7 +274,7 @@ thead td:nth-child(7) {
     }
 
     td:nth-child(1)::before{
-        content: "Date Time: ";
+        content: "Date Time (GMT): ";
     }
 
     td:nth-child(2)::before{
