@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const fs = require('fs')
 require('dotenv').config();
 
 let sequelize;
@@ -11,9 +12,11 @@ if(process.env.DB_HOST){
     {
       host: process.env.DB_HOST,
       dialect: 'mysql',
+      port: process.env.DB_PORT,
       dialectOptions: {
         ssl: {
-            rejectUnauthorized: true,        
+            rejectUnauthorized: true,
+            ca: fs.readFileSync('./config/ca.pem').toString(),        
         }
       }
     }
