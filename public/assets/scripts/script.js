@@ -240,6 +240,10 @@ function tableRowMaker(rollObj) {
   rollTable.appendChild(newRow)
 }
 
+function tableMaker(){
+
+}
+
 // Populates the roll table and creates buttons for page navigation
 function init() {
   // Determines the current page
@@ -473,6 +477,21 @@ rollForm.addEventListener('submit', (e) => {
     location.assign(location.origin)
   })
 
+})
+let refreshButton = document.getElementById('refresh');
+refreshButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  
+  if(document.location.search == '' || document.location.search == '?page=1'){
+    let tbody = document.getElementsByTagName('tbody')[0];
+    let tableNav = document.getElementById('tableNav');
+    tableNav.innerHTML = '';
+    tbody.innerHTML = '';
+    init()
+  }else{
+    document.location.search = ''
+  }
+  
 })
 
 //Event listener to navigate the different pages of the roll table
