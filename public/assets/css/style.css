@@ -1,7 +1,9 @@
 /*Variables*/
 :root{
-    --main-color: rgba(32, 43, 45, 0.97);
+    --main-color: rgba(25, 27, 58, 0.97);
+    --main-text-color:#75BEDD;
     --secondary-color: rgb(174, 174, 174);
+    --secondary-text-color: rgb(174, 174, 174);
     --lazy-background-color: #000;
     --zebra1-color: #111115;/*table zebra pattern color */
     --zebra2-color: #09090c;/*table zebra pattern color */
@@ -13,12 +15,12 @@
 
 body{
     background-color: var(--lazy-background-color);
-    background-image: url('../images/background.avif'); /*image source: https://images.unsplash.com/photo-1512075622870-bcc3993c173e?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */
+    background-image: url('../images/background.jpg'); /*image source: https://images.unsplash.com/photo-1512075622870-bcc3993c173e?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    color: var(--secondary-color);
+    color: var(--secondary-text-color);
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -34,7 +36,7 @@ button{
     font-size: smaller;
     background-color: var(--button);
     height: 40px;
-    color: var(--secondary-color);
+    color: var(--secondary-text-color);
     border: none;
     border-radius: 20px;
     width: 14ch;
@@ -74,6 +76,10 @@ form{
     margin: 10px;
 }
 
+h1, h3, thead tr td{
+    color:var(--main-text-color)
+}
+
 img{
     height: 35px;
     margin-left: 5px;
@@ -104,7 +110,7 @@ th {
 }
 
 td a {
-    color: var(--secondary-color)
+    color: var(--secondary-text-color)
 }
 
 tbody > *{
@@ -187,7 +193,7 @@ thead > * {
 /* Psuedo Class */
 button:hover {
     color: var(--button);
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-text-color);
 }
 
 tbody tr:nth-child(odd) {
